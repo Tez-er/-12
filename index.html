@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TornadoLand — Затишний гриферський сервер Minecraft</title>
+    <!-- Підключення Tailwind CSS через CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tornado: {
+                            50: '#f4f6f8',
+                            100: '#e2e8f0',
+                            200: '#cbd5e1',
+                            300: '#94a3b8',
+                            400: '#64748b',
+                            500: '#3b82f6', // Основний акцентний синій
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554',
+                        },
+                        dark: {
+                            bg: '#0f172a',    // Темний фон сторінки
+                            card: '#1e293b',  // Фон карток
+                            border: '#334155' // Колір рамок
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb; 
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-slate-200 antialiased selection:bg-tornado-500 selection:text-white">
+
+    <!-- Закріплена навігаційна панель -->
+    <nav class="fixed w-full z-50 bg-dark-bg/80 backdrop-blur-md border-b border-dark-border transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Логотип -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <i class="ph-fill ph-tornado text-3xl text-tornado-500"></i>
+                    <span class="font-bold text-xl tracking-tight">Tornado<span class="text-tornado-500">Land</span></span>
+                </div>
+                
+                <!-- Головне меню -->
+                <div class="hidden md:flex space-x-1 lg:space-x-4">
+                    <a href="#home" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-dark-card transition-colors" data-i18n="nav_home">Головна</a>
+                    <a href="#why-us" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-dark-card transition-colors" data-i18n="nav_why">Чому ми</a>
+                    <a href="#rules" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-dark-card transition-colors" data-i18n="nav_rules">Правила</a>
+                    <a href="#how-to-join" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-dark-card transition-colors" data-i18n="nav_join">Як зайти</a>
+                </div>
+
+                <div class="hidden md:flex items-center gap-3">
+                    <!-- Перемикач мов -->
+                    <div class="relative inline-block text-left">
+                        <button onclick="toggleLangDropdown()" class="bg-dark-card hover:bg-slate-800 text-slate-300 border border-dark-border px-3 py-2 rounded-lg font-medium text-sm flex items-center gap-1.5 transition-colors">
+                            <i class="ph ph-globe text-tornado-400 text-lg"></i>
+                            <span id="currentLangLabel">UA</span>
+                            <i class="ph ph-caret-down text-xs"></i>
+                        </button>
+                        <div id="langDropdown" class="hidden absolute right-0 mt-2 w-32 bg-dark-card border border-dark-border rounded-xl shadow-xl py-1 z-50">
+                            <button onclick="changeLanguage('uk')" class="w-full text-left px-3 py-1.5 text-xs text-slate-200 hover:bg-tornado-600 hover:text-white flex items-center gap-2 transition-colors">
+                                <span>🇺🇦</span> Українська
+                            </button>
+                            <button onclick="changeLanguage('en')" class="w-full text-left px-3 py-1.5 text-xs text-slate-200 hover:bg-tornado-600 hover:text-white flex items-center gap-2 transition-colors">
+                                <span>🇬🇧</span> English
+                            </button>
+                            <button onclick="changeLanguage('ru')" class="w-full text-left px-3 py-1.5 text-xs text-slate-200 hover:bg-tornado-600 hover:text-white flex items-center gap-2 transition-colors">
+                                <span>🇷🇺</span> Русский
+                            </button>
+                        </div>
+                    </div>
+
+                    <button onclick="copyIp()" class="bg-tornado-600 hover:bg-tornado-500 text-white px-4 py-2 rounded-lg font-medium transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] flex items-center gap-2" id="copyBtn">
+                        <i class="ph ph-copy text-lg"></i>
+                        <span>26.97.77.25:25565</span>
+                    </button>
+                </div>
+
+                <!-- Кнопка мобільного меню -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none p-2">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Мобільне меню -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-card border-b border-dark-border">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-dark-bg" data-i18n="nav_home">Головна</a>
+                <a href="#why-us" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-dark-bg" data-i18n="nav_why">Чому ми</a>
+                <a href="#rules" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-dark-bg" data-i18n="nav_rules">Правила</a>
+                <a href="#how-to-join" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-dark-bg" data-i18n="nav_join">Як зайти</a>
+                
+                <!-- Перемикач мов у мобільному меню -->
+                <div class="pt-2 pb-1 border-t border-dark-border flex items-center justify-around">
+                    <button onclick="changeLanguage('uk')" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-dark-border bg-dark-bg text-slate-300 hover:text-white hover:border-tornado-500 flex items-center gap-1 transition-colors">🇺🇦 UA</button>
+                    <button onclick="changeLanguage('en')" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-dark-border bg-dark-bg text-slate-300 hover:text-white hover:border-tornado-500 flex items-center gap-1 transition-colors">🇬🇧 EN</button>
+                    <button onclick="changeLanguage('ru')" class="px-2.5 py-1 rounded-lg text-xs font-medium border border-dark-border bg-dark-bg text-slate-300 hover:text-white hover:border-tornado-500 flex items-center gap-1 transition-colors">🇷🇺 RU</button>
+                </div>
+
+                <button onclick="copyIp()" class="w-full text-left mt-2 bg-tornado-600 hover:bg-tornado-500 text-white px-3 py-2 rounded-md font-medium transition-colors flex items-center gap-2">
+                    <i class="ph ph-copy"></i> <span data-i18n="copy_ip">Скопіювати IP</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1-ША СТОРІНКА / ГОЛОВНИЙ БЛОК -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex flex-col items-center justify-center min-h-[85vh] text-center px-4">
+        <!-- Фоновий градієнтний ефект -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-tornado-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto fade-in-up">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-dark-card border border-dark-border text-tornado-400 text-sm font-medium mb-6">
+                <i class="ph-fill ph-sword text-lg"></i> <span data-i18n="hero_tag">Затишний гриферський сервер</span>
+            </div>
+            
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6">
+                <span data-i18n="hero_title_prefix">Сервер </span><span class="text-transparent bg-clip-text bg-gradient-to-r from-tornado-400 via-tornado-500 to-blue-600" data-i18n="hero_title_brand">TornadoLand</span>
+            </h1>
+            
+            <p class="text-lg md:text-2xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed" data-i18n="hero_desc">
+                Поринь у справжнє виживання з елементами гриферства. Завойовуй території, будуй бази та створюй власну історію разом із нами!
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#how-to-join" class="bg-tornado-600 hover:bg-tornado-500 text-white px-8 py-3.5 rounded-xl font-semibold transition-all shadow-lg shadow-tornado-500/30 hover:scale-105 flex items-center gap-2 w-full sm:w-auto justify-center">
+                    <span data-i18n="hero_btn_join">Як розпочати грати</span> <i class="ph ph-arrow-right font-bold"></i>
+                </a>
+                <button onclick="copyIp()" class="bg-dark-card hover:bg-slate-800 text-slate-200 border border-dark-border px-8 py-3.5 rounded-xl font-semibold transition-all flex items-center gap-2 w-full sm:w-auto justify-center">
+                    <i class="ph ph-copy text-lg text-tornado-400"></i> <span data-i18n="hero_btn_copy">Скопіювати IP</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК "ЧОМУ ВАРТО ОБРАТИ НАС?" -->
+    <section id="why-us" class="py-20 relative z-10 border-t border-dark-border/50 bg-dark-bg/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4" data-i18n="why_title">Чому варто обрати нас?</h2>
+                <p class="text-slate-400 text-lg" data-i18n="why_subtitle">Ми створили ідеальний баланс для любителів справжнього гриферського виживання.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Картка 1 -->
+                <div class="bg-dark-card border border-dark-border p-8 rounded-2xl hover:border-tornado-500/50 transition-all hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-tornado-500/10 text-tornado-400 flex items-center justify-center text-3xl mb-6 border border-tornado-500/20">
+                        <i class="ph-fill ph-house-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white" data-i18n="why_c1_title">Затишна атмосфера</h3>
+                    <p class="text-slate-400 leading-relaxed" data-i18n="why_c1_desc">
+                        Дружня спільнота та комфортна гра. Тут кожен гравець знайде своє місце — від одинаків до потужних кланів.
+                    </p>
+                </div>
+
+                <!-- Картка 2 -->
+                <div class="bg-dark-card border border-dark-border p-8 rounded-2xl hover:border-tornado-500/50 transition-all hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-tornado-500/10 text-tornado-400 flex items-center justify-center text-3xl mb-6 border border-tornado-500/20">
+                        <i class="ph-fill ph-skull"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white" data-i18n="why_c2_title">Чесний гриферський драйв</h3>
+                    <p class="text-slate-400 leading-relaxed" data-i18n="why_c2_desc">
+                        Ніяких зайвих обмежень, що псують дух виживання. Шукай чужі бази, захищай свою та доводь свою перевагу.
+                    </p>
+                </div>
+
+                <!-- Картка 3 -->
+                <div class="bg-dark-card border border-dark-border p-8 rounded-2xl hover:border-tornado-500/50 transition-all hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-tornado-500/10 text-tornado-400 flex items-center justify-center text-3xl mb-6 border border-tornado-500/20">
+                        <i class="ph-fill ph-lightning"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white" data-i18n="why_c3_title">Стабільність та якість</h3>
+                    <p class="text-slate-400 leading-relaxed" data-i18n="why_c3_desc">
+                        Швидкий сервер, оптимізований для плавного геймплею без затримок і лагів у найгарячіших Pvp битвах.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2-ГА СТОРІНКА / ПРАВИЛА СЕРВЕРА -->
+    <section id="rules" class="py-24 relative z-10 border-t border-dark-border">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tornado-500/10 text-tornado-400 text-sm font-medium mb-3 border border-tornado-500/20">
+                    <i class="ph-fill ph-shield-check"></i> <span data-i18n="rules_tag">Регламент проекту</span>
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-extrabold mb-4" data-i18n="rules_title">Правила сервера</h2>
+                <p class="text-slate-400 text-lg" data-i18n="rules_subtitle">Незнання правил не звільняє від відповідальності. Будь ласка, дотримуйтесь їх для комфортної гри.</p>
+            </div>
+
+            <!-- Розділ 1: Загальні положення -->
+            <div class="mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-tornado-500/20 text-tornado-400 flex items-center justify-center text-xl">
+                        <i class="ph-fill ph-book-bookmark"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold" data-i18n="r1_title">1. Загальні положення</h3>
+                </div>
+                <div class="grid gap-4">
+                    <div class="bg-dark-card border border-dark-border rounded-xl p-5">
+                        <div class="flex gap-4">
+                            <span class="text-tornado-500 font-mono font-bold mt-0.5">1.1</span>
+                            <div>
+                                <h4 class="font-semibold text-white mb-1" data-i18n="r1_1_h">Відповідальність за акаунт</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="r1_1_d">Ви несете повну відповідальність за всі дії, здійснені з вашого акаунту. Злам акаунту не є виправданням при порушенні правил.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-card border border-dark-border rounded-xl p-5">
+                        <div class="flex gap-4">
+                            <span class="text-tornado-500 font-mono font-bold mt-0.5">1.2</span>
+                            <div>
+                                <h4 class="font-semibold text-white mb-1" data-i18n="r1_2_h">Зміни в правилах</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="r1_2_d">Адміністрація залишає за собою право змінювати ці правила в будь-який час. Гравці зобов'язані самостійно слідкувати за оновленнями.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-card border border-dark-border rounded-xl p-5">
+                        <div class="flex gap-4">
+                            <span class="text-tornado-500 font-mono font-bold mt-0.5">1.3</span>
+                            <div>
+                                <h4 class="font-semibold text-white mb-1" data-i18n="r1_3_h">Рішення Адміністрації</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="r1_3_d">Адміністрація має право приймати рішення в ситуаціях, не описаних у правилах, керуючись здоровим глуздом.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-card border border-dark-border rounded-xl p-5">
+                        <div class="flex gap-4">
+                            <span class="text-tornado-500 font-mono font-bold mt-0.5">1.4</span>
+                            <div>
+                                <h4 class="font-semibold text-white mb-1" data-i18n="r1_4_h">Мультиакаунти</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="r1_4_d">Створення додаткових акаунтів (твінків) для обходу бану або муту суворо заборонено.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Розділ 2: Правила чату -->
+            <div class="mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-green-500/20 text-green-400 flex items-center justify-center text-xl">
+                        <i class="ph-fill ph-chat-teardrop-text"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold" data-i18n="r2_title">2. Правила спілкування (Чат)</h3>
+                </div>
+                <div class="grid gap-4">
+                    <div class="bg-dark-card border border-dark-border rounded-xl p-5">
+                        <div class="flex gap-4">
+                            <span class="text-green-500 font-mono font-bold mt-0.5">2.1</span>
+                            <div>
+                                <h4 class="font-semibold text-white mb-1" data-i18n="r2_1_h">Ненормативна лексика та образи</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="r2_1_d">Заборонено образи гравців, провокації на конфлікт, приниження гідності та надмірний мат.</p>
+                                <span class="inline-block mt-2 text-xs font-semibold text-yellow-500" data-i18n="r2_1_p">Покарання: Мут від 30 хв до 24 годин.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-card border border-dark-border rounded-xl p-5">
+                        <div class="flex gap-4">
+                            <span class="text-green-500 font-mono font-bold mt-0.5">2.2</span>
+                            <div>
+                                <h4 class="font-semibold text-white mb-1" data-i18n="r2_2_h">Спам та Флуд</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="r2_2_d">Заборонено спам (повторення повідомлень), флуд та зловживання Caps Lock.</p>
+                                <span class="inline-block mt-2 text-xs font-semibold text-yellow-500" data-i18n="r2_2_p">Покарання: Мут від 15 хв до 2 годин.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-card border border-dark-border rounded-xl p-5">
+                        <div class="flex gap-4">
+                            <span class="text-green-500 font-mono font-bold mt-0.5">2.3</span>
+                            <div>
+                                <h4 class="font-semibold text-white mb-1" data-i18n="r2_3_h">Реклама</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="r2_3_d">Будь-яка реклама сторонніх ресурсів, серверів чи сайтів без узгодження заборонена.</p>
+                                <span class="inline-block mt-2 text-xs font-semibold text-red-400" data-i18n="r2_3_p">Покарання: Перманентний бан.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-card border border-dark-border rounded-xl p-5">
+                        <div class="flex gap-4">
+                            <span class="text-green-500 font-mono font-bold mt-0.5">2.4</span>
+                            <div>
+                                <h4 class="font-semibold text-white mb-1" data-i18n="r2_4_h">Дискримінація</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="r2_4_d">Заборонені будь-які прояви дискримінації, расизму, нацизму та політики.</p>
+                                <span class="inline-block mt-2 text-xs font-semibold text-red-400" data-i18n="r2_4_p">Покарання: Мут на 7 днів / Бан.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Розділ 3: Ігровий процес -->
+            <div class="mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl">
+                        <i class="ph-fill ph-game-controller"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold" data-i18n="r3_title">3. Ігровий процес</h3>
+                </div>
+                <div class="grid gap-4">
+                    <div class="bg-dark-card border border-dark-border rounded-xl p-5">
+                        <div class="flex gap-4">
+                            <span class="text-purple-500 font-mono font-bold mt-0.5">3.1</span>
+                            <div>
+                                <h4 class="font-semibold text-white mb-1" data-i18n="r3_1_h">Використання читів та ПЗ</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="r3_1_d">Заборонено будь-які сторонні програми (чіти, автоклікери, X-Ray), що дають перевагу.</p>
+                                <span class="inline-block mt-2 text-xs font-semibold text-red-400" data-i18n="r3_1_p">Покарання: Перманентний бан.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-card border border-dark-border rounded-xl p-5">
+                        <div class="flex gap-4">
+                            <span class="text-purple-500 font-mono font-bold mt-0.5">3.2</span>
+                            <div>
+                                <h4 class="font-semibold text-white mb-1" data-i18n="r3_2_h">Баги та Дюпи</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="r3_2_d">Заборонено використання багів гри чи сервера для отримання вигоди.</p>
+                                <span class="inline-block mt-2 text-xs font-semibold text-yellow-500" data-i18n="r3_2_p">Покарання: Бан від 7 днів + вилучення речей.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-dark-card border border-dark-border rounded-xl p-5">
+                        <div class="flex gap-4">
+                            <span class="text-purple-500 font-mono font-bold mt-0.5">3.3</span>
+                            <div>
+                                <h4 class="font-semibold text-white mb-1" data-i18n="r3_3_h">Шахрайство</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="r3_3_d">Заборонено обманювати гравців під час торгівлі та заманювати в TP-пастки.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Розділ 4: Будівництво -->
+            <div class="mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-orange-500/20 text-orange-400 flex items-center justify-center text-xl">
+                        <i class="ph-fill ph-hammer"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold" data-i18n="r4_title">4. Будівництво та Територія</h3>
+                </div>
+                <div class="grid gap-4">
+                    <div class="bg-dark-card border border-dark-border rounded-xl p-5">
+                        <div class="flex gap-4">
+                            <span class="text-orange-500 font-mono font-bold mt-0.5">4.1</span>
+                            <div>
+                                <h4 class="font-semibold text-white mb-1" data-i18n="r4_1_h">Цензура будівель</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="r4_1_d">Заборонено будувати споруди непристойного характеру, а також лаг-машини для навантаження сервера.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Розділ 5: Покарання -->
+            <div class="bg-gradient-to-br from-red-950/40 via-dark-card to-dark-card border border-red-500/30 rounded-2xl p-6 sm:p-8">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center text-xl">
+                        <i class="ph-fill ph-warning-octagon"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white" data-i18n="r5_title">5. Система покарань</h3>
+                </div>
+                <p class="text-slate-300 text-sm mb-6" data-i18n="r5_desc">Адміністрація обирає міру покарання на свій розсуд. Час покарання може бути збільшено при повторному порушенні.</p>
+                
+                <div class="grid sm:grid-cols-3 gap-4">
+                    <div class="bg-dark-bg/60 p-4 rounded-xl border border-dark-border">
+                        <div class="text-yellow-400 font-bold mb-1 flex items-center gap-2"><i class="ph-fill ph-speaker-slash"></i> Mute</div>
+                        <p class="text-xs text-slate-400" data-i18n="r5_mute_desc">Тимчасове блокування текстового або голосового чату.</p>
+                    </div>
+                    <div class="bg-dark-bg/60 p-4 rounded-xl border border-dark-border">
+                        <div class="text-orange-400 font-bold mb-1 flex items-center gap-2"><i class="ph-fill ph-boot"></i> Kick</div>
+                        <p class="text-xs text-slate-400" data-i18n="r5_kick_desc">Примусове відключення від сервера (попередження).</p>
+                    </div>
+                    <div class="bg-dark-bg/60 p-4 rounded-xl border border-dark-border">
+                        <div class="text-red-500 font-bold mb-1 flex items-center gap-2"><i class="ph-fill ph-prohibit"></i> Ban</div>
+                        <p class="text-xs text-slate-400" data-i18n="r5_ban_desc">Блокування доступу до сервера за серйозні порушення.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 3-ТЯ СТОРІНКА / ЯК ЗАЙТИ НА СЕРВЕР -->
+    <section id="how-to-join" class="py-24 relative z-10 border-t border-dark-border bg-dark-bg/50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tornado-500/10 text-tornado-400 text-sm font-medium mb-3 border border-tornado-500/20">
+                    <i class="ph-fill ph-play-circle"></i> <span data-i18n="join_tag">Інструкція</span>
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-extrabold mb-4" data-i18n="join_title">Як зайти на сервер?</h2>
+                <p class="text-slate-400 text-lg" data-i18n="join_subtitle">Виконай 4 простих кроки, щоб розпочати свою пригоду на TornadoLand.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Крок 1 -->
+                <div class="bg-dark-card border border-dark-border rounded-2xl p-6 relative overflow-hidden">
+                    <div class="text-4xl font-extrabold text-tornado-500/20 mb-4">01</div>
+                    <h3 class="text-lg font-bold text-white mb-2" data-i18n="s1_title">Завантаж Radmin VPN</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="s1_desc">Скачай та встанови програму Radmin VPN на свій комп'ютер для з'єднання з мережею сервера.</p>
+                </div>
+
+                <!-- Крок 2 -->
+                <div class="bg-dark-card border border-dark-border rounded-2xl p-6 relative overflow-hidden">
+                    <div class="text-4xl font-extrabold text-tornado-500/20 mb-4">02</div>
+                    <h3 class="text-lg font-bold text-white mb-2" data-i18n="s2_title">Зайди в мережу</h3>
+                    <p class="text-slate-400 text-sm mb-2"><span data-i18n="s2_desc">У Radmin VPN обери «Приєднатися до мережі» та знайди </span><strong class="text-white">Tornado Land</strong>.</p>
+                    <div class="bg-dark-bg p-2 rounded border border-dark-border font-mono text-xs text-tornado-400 text-center">
+                        <span data-i18n="s2_pass">Пароль: </span><span class="text-white font-bold">123456</span>
+                    </div>
+                </div>
+
+                <!-- Крок 3 -->
+                <div class="bg-dark-card border border-dark-border rounded-2xl p-6 relative overflow-hidden">
+                    <div class="text-4xl font-extrabold text-tornado-500/20 mb-4">03</div>
+                    <h3 class="text-lg font-bold text-white mb-2" data-i18n="s3_title">Minecraft 1.21.11</h3>
+                    <p class="text-slate-400 text-sm"><span data-i18n="s3_desc">Відкрий свій лаунчер та запусти Minecraft версії </span><strong class="text-white">1.21.11</strong>.</p>
+                </div>
+
+                <!-- Крок 4 -->
+                <div class="bg-dark-card border border-dark-border rounded-2xl p-6 relative overflow-hidden">
+                    <div class="text-4xl font-extrabold text-tornado-500/20 mb-4">04</div>
+                    <h3 class="text-lg font-bold text-white mb-2" data-i18n="s4_title">Введи IP та грай!</h3>
+                    <p class="text-slate-400 text-sm mb-3" data-i18n="s4_desc">Зайди в «Мережева гра» та підключись за адресою:</p>
+                    <div class="bg-dark-bg p-2 rounded border border-dark-border font-mono text-xs text-tornado-400 text-center select-all">
+                        26.97.77.25:25565
+                    </div>
+                </div>
+            </div>
+
+            <!-- Блок з швидким копіюванням -->
+            <div class="bg-gradient-to-r from-tornado-900/30 via-dark-card to-tornado-900/30 border border-tornado-500/40 rounded-2xl p-8 text-center max-w-2xl mx-auto shadow-xl">
+                <h3 class="text-xl font-bold mb-2 text-white" data-i18n="cta_title">Усе налаштовано? Готовий до гри!</h3>
+                <p class="text-slate-400 text-sm mb-6" data-i18n="cta_desc">Скопіюй IP-адресу, заходь у Minecraft та починай виживання на TornadoLand!</p>
+                <button onclick="copyIp()" class="bg-tornado-600 hover:bg-tornado-500 text-white px-8 py-3.5 rounded-xl font-semibold transition-all shadow-lg shadow-tornado-500/30 inline-flex items-center gap-3">
+                    <i class="ph ph-copy text-xl"></i>
+                    <span>26.97.77.25:25565</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПІДВАЛ (FOOTER) -->
+    <footer class="bg-dark-card border-t border-dark-border py-10 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <i class="ph-fill ph-tornado text-2xl text-tornado-500"></i>
+                <span class="font-bold text-lg">Tornado<span class="text-tornado-500">Land</span></span>
+            </div>
+            
+            <p class="text-slate-500 text-sm text-center md:text-left">
+                &copy; <span id="year"></span> TornadoLand. <span data-i18n="footer_rights">Всі права захищені.</span><br>
+                <span data-i18n="footer_disclaimer">Не є офіційним продуктом Minecraft. Не схвалено та не пов'язано з Mojang або Microsoft.</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Тоаст сповіщення про копіювання -->
+    <div id="toast" class="fixed bottom-5 right-5 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <div class="bg-dark-card border border-tornado-500 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-tornado-500/20 flex items-center justify-center text-tornado-500">
+                <i class="ph-fill ph-check-circle text-lg"></i>
+            </div>
+            <div>
+                <p class="font-bold text-sm" data-i18n="toast_title">Успішно скопійовано!</p>
+                <p class="text-xs text-slate-300" data-i18n="toast_desc">IP 26.97.77.25:25565 збережено у буфер обміну.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Словник перекладів (Українська, English, Русский)
+        const translations = {
+            uk: {
+                nav_home: "Головна",
+                nav_why: "Чому ми",
+                nav_rules: "Правила",
+                nav_join: "Як зайти",
+                copy_ip: "Скопіювати IP",
+                hero_tag: "Затишний гриферський сервер",
+                hero_title_prefix: "Сервер ",
+                hero_title_brand: "TornadoLand",
+                hero_desc: "Поринь у справжнє виживання з елементами гриферства. Завойовуй території, будуй бази та створюй власну історію разом із нами!",
+                hero_btn_join: "Як розпочати грати",
+                hero_btn_copy: "Скопіювати IP",
+                why_title: "Чому варто обрати нас?",
+                why_subtitle: "Ми створили ідеальний баланс для любителів справжнього гриферського виживання.",
+                why_c1_title: "Затишна атмосфера",
+                why_c1_desc: "Дружня спільнота та комфортна гра. Тут кожен гравець знайде своє місце — від одинаків до потужних кланів.",
+                why_c2_title: "Чесний гриферський драйв",
+                why_c2_desc: "Ніяких зайвих обмежень, що псують дух виживання. Шукай чужі бази, захищай свою та доводь свою перевагу.",
+                why_c3_title: "Стабільність та якість",
+                why_c3_desc: "Швидкий сервер, оптимізований для плавного геймплею без затримок і лагів у найгарячіших Pvp битвах.",
+                rules_tag: "Регламент проекту",
+                rules_title: "Правила сервера",
+                rules_subtitle: "Незнання правил не звільняє від відповідальності. Будь ласка, дотримуйтесь їх для комфортної гри.",
+                r1_title: "1. Загальні положення",
+                r1_1_h: "Відповідальність за акаунт",
+                r1_1_d: "Ви несете повну відповідальність за всі дії, здійснені з вашого акаунту. Злам акаунту не є виправданням при порушенні правил.",
+                r1_2_h: "Зміни в правилах",
+                r1_2_d: "Адміністрація залишає за собою право змінювати ці правила в будь-який час. Гравці зобов'язані самостійно слідкувати за оновленнями.",
+                r1_3_h: "Рішення Адміністрації",
+                r1_3_d: "Адміністрація має право приймати рішення в ситуаціях, не описаних у правилах, керуючись здоровим глуздом.",
+                r1_4_h: "Мультиакаунти",
+                r1_4_d: "Створення додаткових акаунтів (твінків) для обходу бану або муту суворо заборонено.",
+                r2_title: "2. Правила спілкування (Чат)",
+                r2_1_h: "Ненормативна лексика та образи",
+                r2_1_d: "Заборонено образи гравців, провокації на конфлікт, приниження гідності та надмірний мат.",
+                r2_1_p: "Покарання: Мут від 30 хв до 24 годин.",
+                r2_2_h: "Спам та Флуд",
+                r2_2_d: "Заборонено спам (повторення повідомлень), флуд та зловживання Caps Lock.",
+                r2_2_p: "Покарання: Мут від 15 хв до 2 годин.",
+                r2_3_h: "Реклама",
+                r2_3_d: "Будь-яка реклама сторонніх ресурсів, серверів чи сайтів без узгодження заборонена.",
+                r2_3_p: "Покарання: Перманентний бан.",
+                r2_4_h: "Дискримінація",
+                r2_4_d: "Заборонені будь-які прояви дискримінації, расизму, нацизму та політики.",
+                r2_4_p: "Покарання: Мут на 7 днів / Бан.",
+                r3_title: "3. Ігровий процес",
+                r3_1_h: "Використання читів та ПЗ",
+                r3_1_d: "Заборонено будь-які сторонні програми (чіти, автоклікери, X-Ray), що дають перевагу.",
+                r3_1_p: "Покарання: Перманентний бан.",
+                r3_2_h: "Баги та Дюпи",
+                r3_2_d: "Заборонено використання багів гри чи сервера для отримання вигоди.",
+                r3_2_p: "Покарання: Бан від 7 днів + вилучення речей.",
+                r3_3_h: "Шахрайство",
+                r3_3_d: "Заборонено обманювати гравців під час торгівлі та заманювати в TP-пастки.",
+                r4_title: "4. Будівництво та Територія",
+                r4_1_h: "Цензура будівель",
+                r4_1_d: "Заборонено будувати споруди непристойного характеру, а також лаг-машини для навантаження сервера.",
+                r5_title: "5. Система покарань",
+                r5_desc: "Адміністрація обирає міру покарання на свій розсуд. Час покарання може бути збільшено при повторному порушенні.",
+                r5_mute_desc: "Тимчасове блокування текстового або голосового чату.",
+                r5_kick_desc: "Примусове відключення від сервера (попередження).",
+                r5_ban_desc: "Блокування доступу до сервера за серйозні порушення.",
+                join_tag: "Інструкція",
+                join_title: "Як зайти на сервер?",
+                join_subtitle: "Виконай 4 простих кроки, щоб розпочати свою пригоду на TornadoLand.",
+                s1_title: "Завантаж Radmin VPN",
+                s1_desc: "Скачай та встанови програму Radmin VPN на свій комп'ютер для з'єднання з мережею сервера.",
+                s2_title: "Зайди в мережу",
+                s2_desc: "У Radmin VPN обери «Приєднатися до мережі» та знайди ",
+                s2_pass: "Пароль: ",
+                s3_title: "Minecraft 1.21.11",
+                s3_desc: "Відкрий свій лаунчер та запусти Minecraft версії ",
+                s4_title: "Введи IP та грай!",
+                s4_desc: "Зайди в «Мережева гра» та підключись за адресою:",
+                cta_title: "Усе налаштовано? Готовий до гри!",
+                cta_desc: "Скопіюй IP-адресу, заходь у Minecraft та починай виживання на TornadoLand!",
+                footer_rights: "Всі права захищені.",
+                footer_disclaimer: "Не є офіційним продуктом Minecraft. Не схвалено та не пов'язано з Mojang або Microsoft.",
+                toast_title: "Успішно скопійовано!",
+                toast_desc: "IP 26.97.77.25:25565 збережено у буфер обміну."
+            },
+            en: {
+                nav_home: "Home",
+                nav_why: "Why Us",
+                nav_rules: "Rules",
+                nav_join: "How to Join",
+                copy_ip: "Copy IP",
+                hero_tag: "Cozy Griefing Server",
+                hero_title_prefix: "Server ",
+                hero_title_brand: "TornadoLand",
+                hero_desc: "Immerse yourself in true survival with griefing elements. Conquer territories, build bases, and create your own story with us!",
+                hero_btn_join: "How to Start Playing",
+                hero_btn_copy: "Copy IP",
+                why_title: "Why Choose Us?",
+                why_subtitle: "We created the perfect balance for lovers of true griefing survival.",
+                why_c1_title: "Cozy Atmosphere",
+                why_c1_desc: "Friendly community and comfortable gameplay. Every player will find their place here — from solo players to powerful clans.",
+                why_c2_title: "Fair Griefing Drive",
+                why_c2_desc: "No unnecessary restrictions spoiling the survival spirit. Search for other bases, protect yours, and prove your superiority.",
+                why_c3_title: "Stability & Quality",
+                why_c3_desc: "Fast server optimized for smooth gameplay without lag in the hottest PvP battles.",
+                rules_tag: "Project Regulations",
+                rules_title: "Server Rules",
+                rules_subtitle: "Ignorance of the rules is no excuse. Please follow them for comfortable gameplay.",
+                r1_title: "1. General Provisions",
+                r1_1_h: "Account Responsibility",
+                r1_1_d: "You are fully responsible for all actions taken from your account. Account hacking is not an excuse for breaking rules.",
+                r1_2_h: "Rule Changes",
+                r1_2_d: "The administration reserves the right to change these rules at any time. Players are required to follow updates themselves.",
+                r1_3_h: "Administration Decisions",
+                r1_3_d: "The administration has the right to make decisions in situations not described in the rules, guided by common sense.",
+                r1_4_h: "Multi-Accounts",
+                r1_4_d: "Creating additional accounts (alt accounts) to bypass a ban or mute is strictly prohibited.",
+                r2_title: "2. Communication Rules (Chat)",
+                r2_1_h: "Profanity & Insults",
+                r2_1_d: "Player insults, conflict provocations, humiliation, and excessive profanity are forbidden.",
+                r2_1_p: "Punishment: Mute from 30 mins to 24 hours.",
+                r2_2_h: "Spam & Flood",
+                r2_2_d: "Spamming (repeating messages), flooding, and Caps Lock abuse are prohibited.",
+                r2_2_p: "Punishment: Mute from 15 mins to 2 hours.",
+                r2_3_h: "Advertising",
+                r2_3_d: "Any unauthorized advertising of third-party resources, servers, or sites is prohibited.",
+                r2_3_p: "Punishment: Permanent ban.",
+                r2_4_h: "Discrimination",
+                r2_4_d: "Any manifestations of discrimination, racism, nazism, and political discussions are prohibited.",
+                r2_4_p: "Punishment: 7-day Mute / Ban.",
+                r3_title: "3. Gameplay",
+                r3_1_h: "Use of Cheats & Software",
+                r3_1_d: "Any third-party software (cheats, autoclickers, X-Ray) that gives an advantage is prohibited.",
+                r3_1_p: "Punishment: Permanent ban.",
+                r3_2_h: "Bugs & Dupes",
+                r3_2_d: "Exploiting game or server bugs for personal gain is prohibited.",
+                r3_2_p: "Punishment: Ban from 7 days + item confiscation.",
+                r3_3_h: "Fraud & Traps",
+                r3_3_d: "Scamming players during trades or luring them into TP traps is prohibited.",
+                r4_title: "4. Building & Territory",
+                r4_1_h: "Building Moderation",
+                r4_1_d: "Building inappropriate structures as well as lag machines to overload the server is prohibited.",
+                r5_title: "5. Punishment System",
+                r5_desc: "The administration chooses the measure of punishment at its discretion. Punishment duration may be increased for repeat offenses.",
+                r5_mute_desc: "Temporary blocking of text or voice chat.",
+                r5_kick_desc: "Forced disconnection from the server (warning).",
+                r5_ban_desc: "Blocking access to the server for serious violations.",
+                join_tag: "Instructions",
+                join_title: "How to join the server?",
+                join_subtitle: "Follow 4 simple steps to start your adventure on TornadoLand.",
+                s1_title: "Download Radmin VPN",
+                s1_desc: "Download and install Radmin VPN on your computer to connect to the server network.",
+                s2_title: "Join Network",
+                s2_desc: "In Radmin VPN select 'Join Network' and find ",
+                s2_pass: "Password: ",
+                s3_title: "Minecraft 1.21.11",
+                s3_desc: "Open your launcher and start Minecraft version ",
+                s4_title: "Enter IP & Play!",
+                s4_desc: "Go to 'Multiplayer' and connect to address:",
+                cta_title: "All set? Ready to play!",
+                cta_desc: "Copy the IP address, join Minecraft, and start survival on TornadoLand!",
+                footer_rights: "All rights reserved.",
+                footer_disclaimer: "Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.",
+                toast_title: "Successfully copied!",
+                toast_desc: "IP 26.97.77.25:25565 saved to clipboard."
+            },
+            ru: {
+                nav_home: "Главная",
+                nav_why: "Почему мы",
+                nav_rules: "Правила",
+                nav_join: "Как зайти",
+                copy_ip: "Скопировать IP",
+                hero_tag: "Уютный гриферский сервер",
+                hero_title_prefix: "Сервер ",
+                hero_title_brand: "TornadoLand",
+                hero_desc: "Погрузись в настоящее выживание с элементами гриферства. Завоевывай территории, строй базы и создавай собственную историю вместе с нами!",
+                hero_btn_join: "Как начать играть",
+                hero_btn_copy: "Скопировать IP",
+                why_title: "Почему стоит выбрать нас?",
+                why_subtitle: "Мы создали идеальный баланс для любителей настоящего гриферского выживания.",
+                why_c1_title: "Уютная атмосфера",
+                why_c1_desc: "Дружелюбное сообщество и комфортная игра. Здесь каждый игрок найдет свое место — от одиночек до мощных кланов.",
+                why_c2_title: "Честный гриферский драйв",
+                why_c2_desc: "Никаких лишних ограничений, портящих дух выживания. Ищи чужие базы, защищай свою и доказывай свое преимущество.",
+                why_c3_title: "Стабильность и качество",
+                why_c3_desc: "Быстрый сервер, оптимизированный для плавной игры без задержек и лагов в самых горячих PvP битвах.",
+                rules_tag: "Регламент проекта",
+                rules_title: "Правила сервера",
+                rules_subtitle: "Незнание правил не освобождает от ответственности. Пожалуйста, соблюдайте их для комфортной игры.",
+                r1_title: "1. Общие положения",
+                r1_1_h: "Ответственность за аккаунт",
+                r1_1_d: "Вы несете полную ответственность за все действия, совершенные с вашего аккаунта. Взлом аккаунта не является оправданием при нарушении правил.",
+                r1_2_h: "Изменения в правилах",
+                r1_2_d: "Администрация оставляет за собой право изменять эти правила в любое время. Игроки обязаны самостоятельно следить за обновлениями.",
+                r1_3_h: "Решения Администрации",
+                r1_3_d: "Администрация имеет право принимать решения в ситуациях, не описанных в правилах, руководствуясь здравым смыслом.",
+                r1_4_h: "Мультиаккаунты",
+                r1_4_d: "Создание дополнительных аккаунтов (твинков) для обхода бана или мута строго запрещено.",
+                r2_title: "2. Правила общения (Чат)",
+                r2_1_h: "Ненормативная лексика и оскорбления",
+                r2_1_d: "Запрещены оскорбления игроков, провокации на конфликт, унижение достоинства и чрезмерный мат.",
+                r2_1_p: "Наказание: Мут от 30 мин до 24 часов.",
+                r2_2_h: "Спам и Флуд",
+                r2_2_d: "Запрещен спам (повторение сообщений), флуд и злоупотребление Caps Lock.",
+                r2_2_p: "Наказание: Мут от 15 мин до 2 часов.",
+                r2_3_h: "Реклама",
+                r2_3_d: "Любая реклама сторонних ресурсов, серверов или сайтов без согласования запрещена.",
+                r2_3_p: "Наказание: Перманентный бан.",
+                r2_4_h: "Дискриминация",
+                r2_4_d: "Запрещены любые проявления дискриминации, расизма, нацизма и политики.",
+                r2_4_p: "Наказание: Мут на 7 дней / Бан.",
+                r3_title: "3. Игровой процесс",
+                r3_1_h: "Использование читов и ПО",
+                r3_1_d: "Запрещены любые сторонние программы (читы, автокликеры, X-Ray), дающие преимущество.",
+                r3_1_p: "Наказание: Перманентный бан.",
+                r3_2_h: "Баги и Дюпы",
+                r3_2_d: "Запрещено использование багов игры или сервера для получения выгоды.",
+                r3_2_p: "Наказание: Бан от 7 дней + изъятие вещей.",
+                r3_3_h: "Мошенничество",
+                r3_3_d: "Запрещено обманывать игроков во время торговли и заманивать в TP-ловушки.",
+                r4_title: "4. Строительство и Территория",
+                r4_1_h: "Цензура построек",
+                r4_1_d: "Запрещено строить сооружения непристойного характера, а также лаг-машины для нагрузки сервера.",
+                r5_title: "5. Система наказаний",
+                r5_desc: "Администрация выбирает меру наказания на свое усмотрение. Время наказания может быть увеличено при повторном нарушении.",
+                r5_mute_desc: "Временная блокировка текстового или голосового чата.",
+                r5_kick_desc: "Принудительное отключение от сервера (предупреждение).",
+                r5_ban_desc: "Блокировка доступа к серверу за серьезные нарушения.",
+                join_tag: "Инструкция",
+                join_title: "Как зайти на сервер?",
+                join_subtitle: "Выполни 4 простых шага, чтобы начать свое приключение на TornadoLand.",
+                s1_title: "Скачай Radmin VPN",
+                s1_desc: "Скачай и установи программу Radmin VPN на свой компьютер для соединения с сетью сервера.",
+                s2_title: "Зайди в сеть",
+                s2_desc: "В Radmin VPN выбери «Присоединиться к сети» и найди ",
+                s2_pass: "Пароль: ",
+                s3_title: "Minecraft 1.21.11",
+                s3_desc: "Открой свой лаунчер и запусти Minecraft версии ",
+                s4_title: "Введи IP и играй!",
+                s4_desc: "Зайди в «Сетевая игра» и подключись по адресу:",
+                cta_title: "Все настроено? Готов к игре!",
+                cta_desc: "Скопируй IP-адрес, заходи в Minecraft и начинай выживание на TornadoLand!",
+                footer_rights: "Все права защищены.",
+                footer_disclaimer: "Не является официальным продуктом Minecraft. Не одобрено и не связано с Mojang или Microsoft.",
+                toast_title: "Успешно скопировано!",
+                toast_desc: "IP 26.97.77.25:25565 сохранен в буфер обмена."
+            }
+        };
+
+        // Поточна мова (за замовчуванням з localStorage або 'uk')
+        let currentLang = localStorage.getItem('tornado_lang') || 'uk';
+
+        function toggleLangDropdown() {
+            const dropdown = document.getElementById('langDropdown');
+            if (dropdown) dropdown.classList.toggle('hidden');
+        }
+
+        function changeLanguage(lang) {
+            if (!translations[lang]) return;
+            currentLang = lang;
+            localStorage.setItem('tornado_lang', lang);
+
+            // Оновлення ярлика в під меню
+            const label = document.getElementById('currentLangLabel');
+            if (label) label.textContent = lang.toUpperCase();
+
+            // Переклад усіх елементів з data-i18n
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            // Закрити випадаюче меню
+            const dropdown = document.getElementById('langDropdown');
+            if (dropdown) dropdown.classList.add('hidden');
+        }
+
+        // Закриття випадаючого меню при кліку зовні
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('langDropdown');
+            const button = e.target.closest('button[onclick="toggleLangDropdown()"]');
+            if (dropdown && !dropdown.contains(e.target) && !button) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        // Ініціалізація мови при завантаженні
+        window.addEventListener('DOMContentLoaded', () => {
+            changeLanguage(currentLang);
+        });
+
+        // Поточний рік
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Мобільне меню
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelectorAll('#mobile-menu a');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Навігація при скролі
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-lg', 'bg-dark-bg/95');
+                navbar.classList.remove('bg-dark-bg/80');
+            } else {
+                navbar.classList.remove('shadow-lg', 'bg-dark-bg/95');
+                navbar.classList.add('bg-dark-bg/80');
+            }
+        });
+
+        // Копіювання IP
+        function copyIp() {
+            const ip = "26.97.77.25:25565";
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(ip).then(showToast);
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = ip;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast();
+                } catch (error) {
+                    console.error('Помилка копіювання: ', error);
+                }
+                textArea.remove();
+            }
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+`` 
