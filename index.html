@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +11,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- Google Fonts Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
@@ -57,64 +58,1342 @@
         }
     </script>
     <style>
-        /* Стилізований скроллбар у фіолетових тонах */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #090314;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #581c87;
-            border-radius: 5px;
-            border: 2px solid #090314;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #9333ea;
-        }
-        /* Декоративна сітка на фоні */
-        .bg-grid-pattern {
-            background-image: radial-gradient(rgba(168, 85, 247, 0.12) 1px, transparent 1px);
-            background-size: 28px 28px;
-        }
-        /* Minecraft Slot styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0d0520; }
+        ::-webkit-scrollbar-thumb { background: #4c1d95; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
+
         .mc-slot {
             box-shadow: inset 2px 2px 0px #1a082b, inset -2px -2px 0px #5e289e;
         }
         .mc-slot:hover {
-            box-shadow: inset 2px 2px 0px #310d52, inset -2px -2px 0px #9333ea, 0 0 12px rgba(168, 85, 247, 0.5);
+            box-shadow: inset 2px 2px 0px #310d52, inset -2px -2px 0px #9333ea;
         }
         .mc-container {
-            box-shadow: 0 0 45px rgba(147, 51, 234, 0.35), inset 0 0 15px rgba(88, 28, 135, 0.5);
+            box-shadow: 0 4px 24px rgba(109, 40, 217, 0.25);
         }
-        /* Градієнтна рамка для карток */
         .gradient-border {
             position: relative;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(30, 27, 75, 0.2), rgba(147, 51, 234, 0.15));
-            border-radius: 1.5rem;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(30, 27, 75, 0.15));
+            border-radius: 1rem;
             padding: 1px;
         }
         .gradient-border-inner {
-            background: rgba(15, 7, 32, 0.85);
-            border-radius: 1.45rem;
+            background: #0f0720;
+            border-radius: 0.95rem;
             height: 100%;
+        }
+        .section-divider {
+            width: 40px;
+            height: 3px;
+            background: #7c3aed;
+            border-radius: 2px;
+            margin: 12px auto 0;
+        }
+        .step-card {
+            border-left: 3px solid #6d28d9;
         }
     </style>
 </head>
 <body class="bg-[#070210] text-slate-100 font-sans selection:bg-tornado-600 selection:text-white min-h-screen flex flex-col antialiased overflow-x-hidden">
+
     <!-- Шапка сайту (Navigation) -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0c051d]/85 backdrop-blur-xl border-b border-tornado-900/40 shadow-lg shadow-black/40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0b0419] border-b border-[#1e0d38]" style="box-shadow: 0 2px 12px rgba(0,0,0,0.5);">
+        <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+
             <!-- Логотип -->
-            <a href="#hero" class="flex items-center gap-3 group">
-                <div class="relative">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform" style="background: linear-gradient(145deg, #4c1d95, #6d28d9, #7c3aed); box-shadow: 0 0 0 1px rgba(139,92,246,0.4), 0 4px 20px rgba(109,40,217,0.5);">
-                        <i class="ph-fill ph-wind text-white text-2xl animate-spin" style="animation-duration: 12s;"></i>
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform" style="background: linear-gradient(145deg, #2d1060, #4c1d95, #3b0f7a); box-shadow: 0 0 0 1px rgba(109,40,217,0.5), 0 4px 24px rgba(76,29,149,0.6);">
-                        <i class="ph-fill ph-axe text-white text-2xl"></i>
+            <a href="#hero" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:#2d1060;">
+                    <i class="ph-fill ph-axe text-purple-300 text-xl"></i>
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="text-base font-bold text-white">TornadoLand</span>
+                    <span class="flex items-center gap-1 mt-0.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                        <span class="text-[10px] text-emerald-400 font-semibold uppercase tracking-wider">Grief Server</span>
+                    </span>
+                </div>
+            </a>
+
+            <!-- Навігаційні посилання (Десктоп) -->
+            <nav class="hidden md:flex items-center gap-6 text-sm text-slate-400">
+                <a href="#hero" class="hover:text-white transition-colors" data-i18n="nav_home">Головна</a>
+                <a href="#features" class="hover:text-white transition-colors" data-i18n="nav_why_us">Чому ми</a>
+                <a href="#rules" class="hover:text-white transition-colors" data-i18n="nav_rules">Правила</a>
+                <a href="#how-to-join" class="hover:text-white transition-colors" data-i18n="nav_how_to_join">Як зайти</a>
+                <a href="#storm-chaser" class="text-purple-400 font-semibold hover:text-purple-300 transition-colors flex items-center gap-1.5" data-i18n="nav_storm_chaser">
+                    <i class="ph-fill ph-lightning text-amber-400 text-sm"></i> Storm Chaser
+                </a>
+            </nav>
+
+            <!-- Права частина -->
+            <div class="hidden sm:flex items-center gap-3">
+                <div class="flex items-center bg-[#130826] p-0.5 rounded-lg border border-[#2a1050] text-xs font-bold gap-0.5">
+                    <button onclick="setLanguage('uk')" id="btn-lang-uk" class="px-2.5 py-1.5 rounded-md transition-all text-slate-400 hover:text-white">UA</button>
+                    <button onclick="setLanguage('en')" id="btn-lang-en" class="px-2.5 py-1.5 rounded-md transition-all text-slate-400 hover:text-white">EN</button>
+                    <button onclick="setLanguage('ru')" id="btn-lang-ru" class="px-2.5 py-1.5 rounded-md transition-all text-slate-400 hover:text-white">RU</button>
+                </div>
+                <button onclick="copyServerIP()" class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-semibold px-3.5 py-2 rounded-lg transition-colors flex items-center gap-1.5">
+                    <i class="ph-bold ph-copy text-xs"></i>
+                    <span id="ipTextNav">26.97.77.25:25565</span>
+                </button>
+            </div>
+
+            <!-- Мобільна кнопка -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-slate-400 hover:text-white p-2">
+                <i class="ph-bold ph-list text-xl" id="mobileMenuIcon"></i>
+            </button>
+        </div>
+
+        <!-- Мобільне меню -->
+        <div id="mobileMenu" class="hidden md:hidden bg-[#0e0621] border-t border-[#1e0d38] px-5 py-5 space-y-4">
+            <nav class="flex flex-col space-y-3 text-slate-300 text-sm">
+                <a href="#hero" onclick="toggleMobileMenu()" data-i18n="nav_home" class="hover:text-white">Головна</a>
+                <a href="#features" onclick="toggleMobileMenu()" data-i18n="nav_why_us" class="hover:text-white">Чому ми</a>
+                <a href="#rules" onclick="toggleMobileMenu()" data-i18n="nav_rules" class="hover:text-white">Правила</a>
+                <a href="#how-to-join" onclick="toggleMobileMenu()" data-i18n="nav_how_to_join" class="hover:text-white">Як зайти</a>
+                <a href="#storm-chaser" onclick="toggleMobileMenu()" class="text-purple-400 font-semibold flex items-center gap-1.5">
+                    <i class="ph-fill ph-lightning text-amber-400"></i> Storm Chaser
+                </a>
+            </nav>
+            <div class="pt-3 border-t border-[#1e0d38] flex items-center justify-between">
+                <div class="flex gap-1 text-xs font-bold bg-[#180b33] p-0.5 rounded-lg border border-[#2a1050]">
+                    <button onclick="setLanguage('uk')" class="px-2 py-1 text-slate-300">UA</button>
+                    <button onclick="setLanguage('en')" class="px-2 py-1 text-slate-300">EN</button>
+                    <button onclick="setLanguage('ru')" class="px-2 py-1 text-slate-300">RU</button>
+                </div>
+                <button onclick="copyServerIP()" class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+                    <i class="ph-bold ph-copy"></i>
+                    <span data-i18n="hero_btn_copy_short">IP Сервера</span>
+                </button>
+            </div>
+         <!-- Фоновий темно-фіолетовий блік -->
+            <div class="absolute inset-0 -z-10" style="background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(109,40,217,0.18) 0%, transparent 70%);"></div>
+
+            <div class="max-w-3xl mx-auto px-5 text-center">
+
+                <!-- Тег -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-800/60 text-purple-400 text-xs font-semibold mb-6" style="background: rgba(88,28,135,0.15);">
+                    <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+                    <span data-i18n="hero_badge">Затишний гриферський сервер Minecraft</span>
+                </div>
+
+                <!-- Заголовок -->
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4 leading-tight">
+                    <span data-i18n="hero_title_welcome">Ласкаво просимо на</span><br>
+                    <span style="background: linear-gradient(90deg, #c084fc, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">TornadoLand</span>
+                </h1>
+
+                <!-- Опис -->
+                <p class="text-slate-400 text-base sm:text-lg leading-relaxed mb-8 max-w-xl mx-auto" data-i18n="hero_description">
+                    Занурсь у вир справжніх пригод, чесного гриферства, затишньої спільноти та унікальних квестів Storm Chaser! Збери команду та підкори наш світ.
+                </p>
+
+                <!-- Кнопки -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button onclick="copyServerIP()" class="w-full sm:w-auto px-7 py-3 text-white font-bold rounded-lg text-sm flex items-center justify-center gap-2 transition-colors active:scale-95" style="background: #6d28d9;" onmouseover="this.style.background='#5b21b6'" onmouseout="this.style.background='#6d28d9'">
+                        <i class="ph-bold ph-copy"></i>
+                        <span data-i18n="hero_btn_copy">Скопіювати IP сервера</span>
+                    </button>
+                    <a href="#how-to-join" class="w-full sm:w-auto px-7 py-3 text-slate-300 font-semibold rounded-lg text-sm flex items-center justify-center gap-2 border border-[#2a1050] hover:border-purple-700 transition-colors" style="background: #110526;">
+                        <i class="ph-bold ph-download-simple text-purple-400"></i>
+                        <span data-i18n="hero_btn_how">Як зайти грати?</span>
+                    </a>
+                </div>
+
+                <!-- Бейджи -->
+                <div class="flex flex-wrap justify-center gap-3 mt-10">
+                    <div class="flex items-center gap-1.5 text-xs text-slate-400 px-3 py-1.5 rounded-md border border-[#1e0d38]" style="background:#0e051e;">
+                        <i class="ph-fill ph-check-circle text-purple-400"></i>
+                        <span data-i18n="badge_version">Версія 1.21.11</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs text-slate-400 px-3 py-1.5 rounded-md border border-[#1e0d38]" style="background:#0e051e;">
+                        <i class="ph-fill ph-shield-check text-purple-400"></i>
+                        <span>Radmin VPN</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs text-slate-400 px-3 py-1.5 rounded-md border border-[#1e0d38]" style="background:#0e051e;">
+                        <i class="ph-fill ph-users-three text-purple-400"></i>
+                        <span data-i18n="badge_no_claims">Без привату території</span>
                     </div>
                 </div>
-                <div class="flex flex-col leading-tight">
+            </div>
+        </section>/span>
+                    </div>
+                    <div class="px-4 py-2 rounded-xl bg-[#130826]/80 border border-tornado-800/60 backdrop-blur-md flex items-center gap-2 shadow-md hover:border-tornado-500 transition-colors">
+                        <i class="ph-fill ph-users-three text-tornado-400 text-lg"></i>
+                        <span data-i18n="badge_no_claims">Без привату території</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section id="features" class="py-16 border-t border-[#1a0836]" style="background:#0a0320;">
+            <div class="max-w-5xl mx-auto px-5">
+                <div class="text-center mb-12">
+                    <span class="text-purple-500 text-xs font-semibold uppercase tracking-widest" data-i18n="features_tag">Переваги проекту</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-2" data-i18n="why_title">Чому варто обрати нас?</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="p-6 rounded-xl border border-[#2a1050] hover:border-purple-700 transition-colors" style="background:#0f0622;">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4 text-purple-300 text-xl" style="background:#1c0a38;">
+                            <i class="ph-fill ph-heart"></i>
+                        </div>
+                        <h3 class="text-white font-bold mb-2" data-i18n="feature_1_title">Затишна атмосфера</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="feature_1_desc">Приємне товариство, чуйні гравці та дружня атмосфера в загальному чаті чекають на кожного новачка.</p>
+                    </div>
+                    <div class="p-6 rounded-xl border border-[#2a1050] hover:border-purple-700 transition-colors" style="background:#0f0622;">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4 text-purple-300 text-xl" style="background:#1c0a38;">
+                            <i class="ph-fill ph-sword"></i>
+                        </div>
+                        <h3 class="text-white font-bold mb-2" data-i18n="feature_2_title">Справжній гриферський режим</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="feature_2_desc">Ніяких зайвих обмежень! Будуй надійні сховки, замасковуй бази та випробовуй свою кмітливість у боях.</p>
+                    </div>
+                    <div class="p-6 rounded-xl border border-[#2a1050] hover:border-purple-700 transition-colors" style="background:#0f0622;">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4 text-purple-300 text-xl" style="background:#1c0a38;">
+                            <i class="ph-fill ph-trophy"></i>
+                        </div>
+                        <h3 class="text-white font-bold mb-2" data-i18n="feature_3_title">Система Storm Chaser</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="feature_3_desc">Проходь унікальну лінійку із 45 послідовних квестів на збір ресурсів, одержуй нагороди за кожен рядок від Адміна!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                    <span class="text-tornado-400 font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2">
+                        <i class="ph-fill ph-star"></i> <span data-i18n="features_tag">Переваги проекту</span>
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight" data-i18n="why_title">Чому варто обрати нас?</h2>
+                    <p class="text-slate-400 text-sm sm:text-base" data-i18n="why_subtitle">Ми створили ідеальні умови для комфортної та захоплюючої гри</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Картка 1 -->
+                    <div class="gradient-border group transition-all duration-300 hover:-translate-y-2">
+                        <div class="gradient-border-inner p-8 flex flex-col justify-between">
+                            <div>
+                                <div class="w-16 h-16 bg-tornado-500/15 border border-tornado-500/30 text-tornado-300 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 group-hover:bg-tornado-500/25 transition-all shadow-lg shadow-tornado-950">
+                                    <i class="ph-fill ph-heart"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-tornado-300 transition-colors" data-i18n="feature_1_title">Затишна атмосфера</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed" data-i18n="feature_1_desc">Приємне товариство, чуйні гравці та дружня атмосфера в загальному чаті чекають на кожного новачка.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Картка 2 -->
+                    <div class="gradient-border group transition-all duration-300 hover:-translate-y-2">
+                        <div class="gradient-border-inner p-8 flex flex-col justify-between">
+                            <div>
+                                <div class="w-16 h-16 bg-tornado-500/15 border border-tornado-500/30 text-tornado-300 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 group-hover:bg-tornado-500/25 transition-all shadow-lg shadow-tornado-950">
+                                    <i class="ph-fill ph-sword"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-tornado-300 transition-colors" data-i18n="feature_2_title">Справжній гриферський режим</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed" data-i18n="feature_2_desc">Ніяких зайвих обмежень! Будуй надійні сховки, замасковуй бази та випробовуй свою кмітливість у боях.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Картка 3 -->
+                    <div class="gradient-border group transition-all duration-300 hover:-translate-y-2">
+                        <div class="gradient-border-inner p-8 flex flex-col justify-between">
+                            <div>
+                                <div class="w-16 h-16 bg-tornado-500/15 border border-tornado-500/30 text-tornado-300 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 group-hover:bg-tornado-500/25 transition-all shadow-lg shadow-tornado-950">
+                                    <i class="ph-fill ph-trophy"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-tornado-300 transition-colors" data-i18n="feature_3_title">Система Storm Chaser</h3>
+                                <p class="text-slate-400 text-sm leading-relaxed" data-i18n="feature_3_desc">Проходь унікальну лінійку із 45 послідовних квестів на збір ресурсів, одержуй нагороди за кожен рядок від Адміна!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RULES SECTION -->
+        <section id="rules" class="py-16 border-t border-[#1a0836]" style="background:#07021a;">
+            <div class="max-w-3xl mx-auto px-5">
+                <div class="text-center mb-12">
+                    <span class="text-purple-500 text-xs font-semibold uppercase tracking-widest" data-i18n="rules_tag">Регламент проекту</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-2" data-i18n="rules_title">Правила сервера TornadoLand</h2>
+                    <div class="section-divider"></div>
+                    <p class="text-slate-500 text-sm mt-4" data-i18n="rules_subtitle">Дотримання правил забезпечує чесну та приємну гру для всіх</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Загальні -->
+                    <div class="p-5 rounded-xl border border-[#2a1050]" style="background:#0f0622;">
+                        <h3 class="text-purple-300 font-bold mb-4 flex items-center gap-2 text-sm">
+                            <i class="ph-bold ph-shield-warning text-base"></i>
+                            <span data-i18n="rules_cat_1">1. Загальні правила</span>
+                        </h3>
+                        <ul class="space-y-2.5 text-slate-300 text-sm">
+                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">1.1</span><span data-i18n="rule_1_1">Незнання правил не звільняє від відповідальності.</span></li>
+                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">1.2</span><span data-i18n="rule_1_2">Заборонено використання читів, чит-клієнтів та сторонніх програм для отримання переваги.</span></li>
+                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">1.3</span><span data-i18n="rule_1_3">Заборонено навмисне створення лаг-машин чи навантаження сервера.</span></li>
+                        </ul>
+                    </div>
+                    <!-- Чат -->
+                    <div class="p-5 rounded-xl border border-[#2a1050]" style="background:#0f0622;">
+                        <h3 class="text-purple-300 font-bold mb-4 flex items-center gap-2 text-sm">
+                            <i class="ph-bold ph-chat-centered-text text-base"></i>
+                            <span data-i18n="rules_cat_2">2. Правила чату</span>
+                        </h3>
+                        <ul class="space-y-2.5 text-slate-300 text-sm">
+                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">2.1</span><span data-i18n="rule_2_1">Заборонено флуд, спам та зловживання капсом у чаті.</span></li>
+                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">2.2</span><span data-i18n="rule_2_2">Заборонено образливу поведінку, надмірну ненормативну лексику та рекламу інших ресурсів.</span></li>
+                        </ul>
+                    </div>
+                    <!-- Будівництво -->
+                    <div class="p-5 rounded-xl border border-[#2a1050]" style="background:#0f0622;">
+                        <h3 class="text-purple-300 font-bold mb-4 flex items-center gap-2 text-sm">
+                            <i class="ph-bold ph-house-line text-base"></i>
+                            <span data-i18n="rules_cat_3">3. Будівництво та Ігровий процес</span>
+                        </h3>
+                        <ul class="space-y-2.5 text-slate-300 text-sm">
+                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">3.1</span><span data-i18n="rule_3_1">На сервері відсутні привати території. Будуйте та добре маскуйте свої сховки та бази!</span></li>
+                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">3.2</span><span data-i18n="rule_3_2">Дозволено гриферство та пошук баз інших гравців за допомогою ігрових механік.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                    <span class="text-tornado-400 font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2">
+                        <i class="ph-fill ph-shield"></i> <span data-i18n="rules_tag">Регламент проекту</span>
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight" data-i18n="rules_title">Правила сервера TornadoLand</h2>
+                    <p class="text-slate-400 text-sm" data-i18n="rules_subtitle">Дотримання правил забезпечує чесну та приємну гру для всіх</p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Загальні правила -->
+                    <div class="bg-[#110626]/80 border border-tornado-800/60 rounded-3xl p-7 shadow-xl backdrop-blur-md hover:border-tornado-600/50 transition-all">
+                        <h3 class="text-xl font-bold text-tornado-300 mb-5 flex items-center gap-3">
+                            <div class="p-2 rounded-xl bg-tornado-500/20 text-tornado-400 border border-tornado-500/30">
+                                <i class="ph-bold ph-shield-warning text-xl"></i>
+                            </div>
+                            <span data-i18n="rules_cat_1">1. Загальні правила</span>
+                        </h3>
+                        <ul class="space-y-3.5 text-slate-300 text-sm sm:text-base">
+                            <li class="flex items-start gap-3"><span class="text-tornado-400 font-bold px-2 py-0.5 rounded bg-tornado-950 border border-tornado-800 text-xs shrink-0 mt-0.5">1.1</span> <span data-i18n="rule_1_1">Незнання правил не звільняє від відповідальності.</span></li>
+                            <li class="flex items-start gap-3"><span class="text-tornado-400 font-bold px-2 py-0.5 rounded bg-tornado-950 border border-tornado-800 text-xs shrink-0 mt-0.5">1.2</span> <span data-i18n="rule_1_2">Заборонено використання читів, чит-клієнтів та сторонніх програм для отримання переваги.</span></li>
+                            <li class="flex items-start gap-3"><span class="text-tornado-400 font-bold px-2 py-0.5 rounded bg-tornado-950 border border-tornado-800 text-xs shrink-0 mt-0.5">1.3</span> <span data-i18n="rule_1_3">Заборонено навмисне створення лаг-машин чи навантаження сервера.</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Правила чату -->
+                    <div class="bg-[#110626]/80 border border-tornado-800/60 rounded-3xl p-7 shadow-xl backdrop-blur-md hover:border-tornado-600/50 transition-all">
+                        <h3 class="text-xl font-bold text-tornado-300 mb-5 flex items-center gap-3">
+                            <div class="p-2 rounded-xl bg-tornado-500/20 text-tornado-400 border border-tornado-500/30">
+                                <i class="ph-bold ph-chat-centered-text text-xl"></i>
+                            </div>
+                            <span data-i18n="rules_cat_2">2. Правила чату</span>
+                        </h3>
+                        <ul class="space-y-3.5 text-slate-300 text-sm sm:text-base">
+                            <li class="flex items-start gap-3"><span class="text-tornado-400 font-bold px-2 py-0.5 rounded bg-tornado-950 border border-tornado-800 text-xs shrink-0 mt-0.5">2.1</span> <span data-i18n="rule_2_1">Заборонено флуд, спам та зловживання капсом у чаті.</span></li>
+                            <li class="flex items-start gap-3"><span class="text-tornado-400 font-bold px-2 py-0.5 rounded bg-tornado-950 border border-tornado-800 text-xs shrink-0 mt-0.5">2.2</span> <span data-i18n="rule_2_2">Заборонено образливу поведінку, надмірну ненормативну лексику та рекламу інших ресурсів.</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Будівництво -->
+                    <div class="bg-[#110626]/80 border border-tornado-800/60 rounded-3xl p-7 shadow-xl backdrop-blur-md hover:border-tornado-600/50 transition-all">
+                        <h3 class="text-xl font-bold text-tornado-300 mb-5 flex items-center gap-3">
+                            <div class="p-2 rounded-xl bg-tornado-500/20 text-tornado-400 border border-tornado-500/30">
+                                <i class="ph-bold ph-house-line text-xl"></i>
+                            </div>
+                            <span data-i18n="rules_cat_3">3. Будівництво та Ігровий процес</span>
+                        </h3>
+                        <ul class="space-y-3.5 text-slate-300 text-sm sm:text-base">
+                            <li class="flex items-start gap-3"><span class="text-tornado-400 font-bold px-2 py-0.5 rounded bg-tornado-950 border border-tornado-800 text-xs shrink-0 mt-0.5">3.1</span> <span data-i18n="rule_3_1">На сервері відсутні привати території. Будуйте та добре маскуйте свої сховки та бази!</span></li>
+                            <li class="flex items-start gap-3"><span class="text-tornado-400 font-bold px-2 py-0.5 rounded bg-tornado-950 border border-tornado-800 text-xs shrink-0 mt-0.5">3.2</span> <span data-i18n="rule_3_2">Дозволено гриферство та пошук баз інших гравців за допомогою ігрових механік.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW TO JOIN SECTION -->
+        <section id="how-to-join" class="py-16 border-t border-[#1a0836]" style="background:#0a0320;">
+            <div class="max-w-4xl mx-auto px-5">
+                <div class="text-center mb-12">
+                    <span class="text-purple-500 text-xs font-semibold uppercase tracking-widest" data-i18n="join_tag">Інструкція підключення</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-2" data-i18n="join_title">Як зайти на сервер TornadoLand</h2>
+                    <div class="section-divider"></div>
+                    <p class="text-slate-500 text-sm mt-4" data-i18n="join_subtitle">Виконайте 4 простих кроки для підключення</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-5 rounded-xl border-l-2 border-purple-700 border border-[#2a1050]" style="background:#0f0622;">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl font-black text-purple-700 leading-none">1</span>
+                            <div>
+                                <h4 class="font-bold text-white mb-1" data-i18n="step_1_title">Скачай Radmin VPN</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="step_1_desc">Завантаж та встанови програму Radmin VPN на свій комп'ютер.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-xl border-l-2 border-purple-700 border border-[#2a1050]" style="background:#0f0622;">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl font-black text-purple-700 leading-none">2</span>
+                            <div>
+                                <h4 class="font-bold text-white mb-1" data-i18n="step_2_title">Приєднайся до мережі</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="step_2_desc">Мережа: <strong class="text-white">Tornado Land</strong><br>Пароль: <strong class="text-white">123456</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-xl border-l-2 border-purple-700 border border-[#2a1050]" style="background:#0f0622;">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl font-black text-purple-700 leading-none">3</span>
+                            <div>
+                                <h4 class="font-bold text-white mb-1" data-i18n="step_3_title">Запусти Minecraft</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="step_3_desc">Обери та запусти версію гри <strong class="text-white">1.21.11</strong> у твоєму лаунчері.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-xl border-l-2 border-purple-700 border border-[#2a1050]" style="background:#0f0622;">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl font-black text-purple-700 leading-none">4</span>
+                            <div>
+                                <h4 class="font-bold text-white mb-1" data-i18n="step_4_title">Введи IP сервера</h4>
+                                <p class="text-slate-400 text-sm" data-i18n="step_4_desc">Заходь за адресою <strong class="text-purple-300 font-bold">26.97.77.25:25565</strong> та готуйся до гри!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                    <span class="text-tornado-400 font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2">
+                        <i class="ph-fill ph-signpost"></i> <span data-i18n="join_tag">Інструкція підключення</span>
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight" data-i18n="join_title">Як зайти на сервер TornadoLand</h2>
+                    <p class="text-slate-400 text-sm sm:text-base" data-i18n="join_subtitle">Виконайте 4 простих кроки для підключення</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Крок 1 -->
+                    <div class="bg-[#120729] border border-tornado-800/70 p-6 rounded-3xl flex flex-col justify-between hover:border-tornado-500 transition-all shadow-xl relative group">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-tornado-800 to-purple-500 text-white font-black text-xl flex items-center justify-center mb-5 shadow-md group-hover:scale-110 transition-transform">1</div>
+                            <h4 class="font-bold text-white text-lg mb-2 group-hover:text-tornado-300 transition-colors" data-i18n="step_1_title">Скачай Radmin VPN</h4>
+                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="step_1_desc">Завантаж та встанови програму Radmin VPN на свій комп'ютер.</p>
+                        </div>
+                    </div>
+
+                    <!-- Крок 2 -->
+                    <div class="bg-[#120729] border border-tornado-800/70 p-6 rounded-3xl flex flex-col justify-between hover:border-tornado-500 transition-all shadow-xl relative group">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-tornado-800 to-purple-500 text-white font-black text-xl flex items-center justify-center mb-5 shadow-md group-hover:scale-110 transition-transform">2</div>
+                            <h4 class="font-bold text-white text-lg mb-2 group-hover:text-tornado-300 transition-colors" data-i18n="step_2_title">Приєднайся до мережі</h4>
+                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="step_2_desc">Мережа: <strong class="text-white">Tornado Land</strong><br>Пароль: <strong class="text-white">123456</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- Крок 3 -->
+                    <div class="bg-[#120729] border border-tornado-800/70 p-6 rounded-3xl flex flex-col justify-between hover:border-tornado-500 transition-all shadow-xl relative group">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-tornado-800 to-purple-500 text-white font-black text-xl flex items-center justify-center mb-5 shadow-md group-hover:scale-110 transition-transform">3</div>
+                            <h4 class="font-bold text-white text-lg mb-2 group-hover:text-tornado-300 transition-colors" data-i18n="step_3_title">Запусти Minecraft</h4>
+                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="step_3_desc">Обери та запусти версію гри <strong class="text-white">1.21.11</strong> у твоєму лаунчері.</p>
+                        </div>
+                    </div>
+
+                    <!-- Крок 4 -->
+                    <div class="bg-[#120729] border border-tornado-800/70 p-6 rounded-3xl flex flex-col justify-between hover:border-tornado-500 transition-all shadow-xl relative group">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-tornado-800 to-purple-500 text-white font-black text-xl flex items-center justify-center mb-5 shadow-md group-hover:scale-110 transition-transform">4</div>
+                            <h4 class="font-bold text-white text-lg mb-2 group-hover:text-tornado-300 transition-colors" data-i18n="step_4_title">Введи IP сервера</h4>
+                            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="step_4_desc">Заходь за адресою <strong class="text-tornado-300 font-bold">26.97.77.25:25565</strong> та готуйся до гри!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STORM CHASER QUESTS SECTION -->
+        <section id="storm-chaser" class="py-24 bg-[#05010a] relative overflow-hidden">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+                    <span class="text-amber-400 font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2">
+                        <i class="ph-fill ph-crown text-amber-400 animate-pulse"></i> <span>Battle Pass / <span data-i18n="nav_storm_chaser">Квести</span></span>
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight" data-i18n="gui_section_title">Система Квестів Storm Chaser</h2>
+                    <p class="text-slate-400 text-sm sm:text-base" data-i18n="gui_hint">Завершіть кожен з 5 рядків (по 9 квестів у кожному) та отримайте бонусну нагороду від Адміністратора!</p>
+                </div>
+
+                <!-- Minecraft GUI Container (Фіоплетова стилістика Minecraft) -->
+                <div class="max-w-4xl mx-auto bg-[#230f38] p-4 sm:p-7 rounded-3xl border-4 border-[#4d2178] shadow-[0_0_55px_rgba(147,51,234,0.35)] relative select-none mc-container">
+                    
+                    <!-- Декоративні сяючі куточки -->
+                    <div class="absolute top-3 left-3 text-purple-400 text-xl animate-pulse"><i class="ph-fill ph-sparkle"></i></div>
+                    <div class="absolute top-3 right-3 text-purple-400 text-xl animate-pulse"><i class="ph-fill ph-sparkle"></i></div>
+                    <div class="absolute bottom-3 left-3 text-purple-400 text-xl animate-pulse"><i class="ph-fill ph-sparkle"></i></div>
+                    <div class="absolute bottom-3 right-3 text-purple-400 text-xl animate-pulse"><i class="ph-fill ph-sparkle"></i></div>
+
+                    <!-- Меню заголовку -->
+                    <div class="flex justify-center items-center gap-3 mb-5">
+                        <div class="bg-[#140724] border-2 border-[#451b6e] px-8 py-2 rounded-2xl text-center shadow-inner flex items-center gap-3">
+                            <i class="ph-fill ph-lightning text-amber-400 text-xl"></i>
+                            <span class="font-extrabold text-purple-200 tracking-wider text-sm sm:text-lg uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]" data-i18n="gui_quests_title">КВЕСТИ STORM CHASER (45 КВЕСТІВ)</span>
+                        </div>
+                    </div>
+
+                    <!-- Повна сітка з 5 рядків по 9 слотів = 45 слотів -->
+                    <div id="mcQuestGrid" class="grid grid-cols-9 gap-1.5 sm:gap-2.5 justify-center p-3 bg-[#11041f] rounded-2xl border-2 border-[#331154] shadow-inner mb-5">
+                        <!-- Динамічні 45 слотів генеруються через JS -->
+                    </div>
+
+                    <!-- Деталі обраного квесту -->
+                    <div id="questDetailBox" class="bg-[#160829] border-2 border-[#3e1869] p-5 rounded-2xl text-white transition-all shadow-xl">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 w-full">
+                            <div class="flex items-center gap-4">
+                                <div id="detailIcon" class="w-12 h-12 bg-[#250f3d] border-2 border-[#54218f] rounded-xl flex items-center justify-center text-2xl shadow-md">
+                                    <i class="ph-fill ph-tree text-purple-300"></i>
+                                </div>
+                                <div>
+                                    <h4 id="detailTitle" class="font-bold text-purple-200 text-base sm:text-lg">Квест #1: Перша деревина</h4>
+                                    <span id="detailLvl" class="text-xs text-purple-400 font-bold uppercase tracking-wider">РЯДОК #1</span>
+                                </div>
+                            </div>
+                            <span id="detailStatus" class="px-4 py-1.5 rounded-full text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm">Доступно</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm pt-3 border-t border-[#2e1052] mb-4">
+                            <div>
+                                <span class="text-purple-300/70 block font-semibold mb-1" data-i18n="task_label">Завдання:</span>
+                                <p id="detailTask" class="text-slate-100 font-medium leading-relaxed">Принести 32 дубові колоди</p>
+                            </div>
+                            <div>
+                                <span class="text-purple-300/70 block font-semibold mb-1" data-i18n="progression_label">Наступний крок:</span>
+                                <p id="detailReward" class="text-purple-300 font-medium leading-relaxed">Розблокує Квест #2</p>
+                            </div>
+                        </div>
+
+                        <!-- Блок Повідомлення про Нагороду від Адміна за кожен 9-й квест (рядок) -->
+                        <div id="rowRewardNotice" class="hidden mt-4 p-3.5 bg-amber-500/10 border border-amber-500/40 rounded-xl text-amber-300 text-xs sm:text-sm font-semibold flex items-center gap-3 shadow-lg animate-pulse">
+                            <i class="ph-fill ph-gift text-2xl text-amber-400 shrink-0"></i>
+                            <span>👑 <strong>НАГОРОДА ВІД АДМІНА:</strong> Ви завершили рядок! Повідомте Адміністратора в грі для отримання призу!</span>
+                        </div>
+                    </div>
+
+                    <!-- Дія квесту -->
+                    <div class="flex justify-end mt-5">
+                        <button id="questActionBtn" onclick="toggleCurrentQuestState()" class="w-full sm:w-auto bg-gradient-to-r from-tornado-700 to-purple-600 hover:from-tornado-600 hover:to-purple-500 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
+                            <i class="ph-fill ph-check-circle text-xl"></i>
+                            <span id="actionBtnText">Виконати квест</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#040108] border-t border-tornado-950 py-10 text-center text-slate-500 text-xs">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2 text-slate-400 font-bold">
+                <i class="ph-fill ph-wind text-tornado-400 text-lg"></i>
+                <span>TornadoLand Minecraft</span>
+            </div>
+            <p>© 2026 TornadoLand Minecraft Server. <span data-i18n="footer_rights">Всі права захищено.</span></p>
+            <div class="flex gap-4 text-slate-400">
+                <a href="#hero" class="hover:text-tornado-400 transition-colors" data-i18n="footer_top">Нагору</a>
+                <a href="#rules" class="hover:text-tornado-400 transition-colors" data-i18n="nav_rules">Правила</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast container -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2.5 max-w-sm pointer-events-none"></div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        // 45 Quests Dataset
+        const questData = [
+            // Row 1: Easy (Легкий)
+            { id: 1, icon: "ph-fill ph-tree", qty: 16,
+              itemName: { uk: "дубових колод", en: "Oak Logs", ru: "дубовых бревен" },
+              task: { uk: "Добути 16 дубових колод", en: "Collect 16 oak logs", ru: "Добыть 16 дубовых бревен" }, 
+              title: { uk: "Перші колоди", en: "First Logs", ru: "Первые бревна" } },
+            { id: 2, icon: "ph-fill ph-squares-four", qty: 1,
+              itemName: { uk: "верстак", en: "Crafting Table", ru: "верстак" },
+              task: { uk: "Створити верстак", en: "Craft a crafting table", ru: "Создать верстак" }, 
+              title: { uk: "Майстерня", en: "Workshop", ru: "Мастерская" } },
+            { id: 3, icon: "ph-fill ph-cube", qty: 16,
+              itemName: { uk: "кругляка", en: "Cobblestone", ru: "булыжника" },
+              task: { uk: "Добути 16 кругляка", en: "Mine 16 cobblestone", ru: "Добыть 16 булыжника" }, 
+              title: { uk: "Кам'яні уламки", en: "Stone Shards", ru: "Каменные осколки" } },
+            { id: 4, icon: "ph-fill ph-hammer", qty: 1,
+              itemName: { uk: "кам'яне кайло", en: "Stone Pickaxe", ru: "каменную кирку" },
+              task: { uk: "Зробити кам'яне кайло", en: "Craft a stone pickaxe", ru: "Сделать каменную кирку" } ,
+              title: { uk: "Нове кайло", en: "New Pickaxe", ru: "Новая кирка" } },
+            { id: 5, icon: "ph-fill ph-flame", qty: 8,
+              itemName: { uk: "деревного вугілля", en: "Charcoal", ru: "древесного угля" },
+              task: { uk: "Виплавити 8 деревного вугілля", en: "Smelt 8 charcoal", ru: "Выплавить 8 древесного угля" }, 
+              title: { uk: "Перше паливо", en: "First Fuel", ru: "Первое топливо" } },
+            { id: 6, icon: "ph-fill ph-cookie", qty: 8,
+              itemName: { uk: "стейків", en: "Beef Steaks", ru: "стейков" },
+              task: { uk: "Приготувати 8 стейків", en: "Cook 8 beef steaks", ru: "Приготовить 8 стейков" }, 
+              title: { uk: "Ситний перекус", en: "Hearty Snack", ru: "Сытный перекус" } },
+            { id: 7, icon: "ph-fill ph-flame", qty: 12,
+              itemName: { uk: "вугілля", en: "Coal", ru: "угля" },
+              task: { uk: "Добути 12 кам'яного вугілля", en: "Mine 12 coal", ru: "Добыть 12 каменного угля" }, 
+              title: { uk: "Мисливець за вугіллям", en: "Coal Hunter", ru: "Охотник за углем" } },
+            { id: 8, icon: "ph-fill ph-sword", qty: 1,
+              itemName: { uk: "кам'яний меч", en: "Stone Sword", ru: "каменный меч" },
+              task: { uk: "Створити кам'яний меч", en: "Craft a stone sword", ru: "Создать каменный меч" }, 
+              title: { uk: "Оборона", en: "Self-Defense", ru: "Оборона" } },
+            { id: 9, icon: "ph-fill ph-cube", qty: 4,
+              itemName: { uk: "залізної руди", en: "Raw Iron", ru: "железной руды" },
+              task: { uk: "Добути 4 залізної руди", en: "Mine 4 raw iron", ru: "Добыть 4 необработанного железа" }, 
+              title: { uk: "Залізна знахідка", en: "Iron Discovery", ru: "Железная находка" } },
+
+            // Row 2: Medium (Середній)
+            { id: 10, icon: "ph-fill ph-cube", qty: 16,
+              itemName: { uk: "залізних зливків", en: "Iron Ingots", ru: "железных слитков" },
+              task: { uk: "Виплавити 16 залізних зливків", en: "Smelt 16 iron ingots", ru: "Выплавить 16 железных слитков" }, 
+              title: { uk: "Залізний вік", en: "Iron Age", ru: "Железный век" } },
+            { id: 11, icon: "ph-fill ph-shield", qty: 1,
+              itemName: { uk: "залізна нагрудна пластина", en: "Iron Chestplate", ru: "железный нагрудник" },
+              task: { uk: "Створити залізне нагрудник", en: "Craft an iron chestplate", ru: "Создать железный нагрудник" }, 
+              title: { uk: "Надійний захист", en: "Reliable Defense", ru: "Надежная защита" } },
+            { id: 12, icon: "ph-fill ph-drop", qty: 1,
+              itemName: { uk: "відро води", en: "Water Bucket", ru: "ведро воды" },
+              task: { uk: "Створити відро води", en: "Craft a bucket of water", ru: "Спасти ведро воды" }, 
+              title: { uk: "Рятувальний круг", en: "Water Source", ru: "Спасательный круг" } },
+            { id: 13, icon: "ph-fill ph-coins", qty: 16,
+              itemName: { uk: "золотих зливків", en: "Gold Ingots", ru: "золотых слитков" },
+              task: { uk: "Виплавити 16 золотих зливків", en: "Smelt 16 gold ingots", ru: "Выплавить 16 золотых слитков" }, 
+              title: { uk: "Блиск багатства", en: "Rich Shine", ru: "Блеск богатства" } },
+            { id: 14, icon: "ph-fill ph-lightning", qty: 32,
+              itemName: { uk: "редстоуну", en: "Redstone Dust", ru: "редстоуна" },
+              task: { uk: "Добути 32 редстоуну", en: "Mine 32 redstone dust", ru: "Добыть 32 редстоуна" }, 
+              title: { uk: "Енергія надр", en: "Power of Earth", ru: "Энергия недр" } },
+            { id: 15, icon: "ph-fill ph-drop", qty: 16,
+              itemName: { uk: "лазуриту", en: "Lapis Lazuli", ru: "лазурита" },
+              task: { uk: "Добути 16 лазуриту", en: "Mine 16 lapis lazuli", ru: "Добыть 16 лазурита" }, 
+              title: { uk: "Магічний пил", en: "Magic Dust", ru: "Магическая пыль" } },
+            { id: 16, icon: "ph-fill ph-diamond", qty: 3,
+              itemName: { uk: "алмази", en: "Diamonds", ru: "алмаза" },
+              task: { uk: "Добути 3 алмази", en: "Mine 3 diamonds", ru: "Добыть 3 алмаза" }, 
+              title: { uk: "Перші діаманти", en: "First Diamonds", ru: "Первые алмазы" } },
+            { id: 17, icon: "ph-fill ph-hammer", qty: 1,
+              itemName: { uk: "алмазне кайло", en: "Diamond Pickaxe", ru: "алмазную кирку" },
+              task: { uk: "Зробити алмазне кайло", en: "Craft a diamond pickaxe", ru: "Создать алмазную кирку" }, 
+              title: { uk: "Вершина технологій", en: "Top Tier Tools", ru: "Вершина технологий" } },
+            { id: 18, icon: "ph-fill ph-cube", qty: 10,
+              itemName: { uk: "блоків обсидіану", en: "Obsidian Blocks", ru: "блоков обсидиана" },
+              task: { uk: "Добути 10 блоків обсидіану", en: "Mine 10 obsidian blocks", ru: "Добыть 10 блоков обсидиана" }, 
+              title: { uk: "Темна скеля", en: "Dark Rock", ru: "Темная порода" } },
+
+            // Row 3: Hard (Складний)
+            { id: 19, icon: "ph-fill ph-door", qty: 1,
+              itemName: { uk: "активований портал Незеру", en: "Activated Nether Portal", ru: "активированный портал Незера" },
+              task: { uk: "Побудувати портал у Незер", en: "Build and activate a Nether Portal", ru: "Построить портал в Незер" }, 
+              title: { uk: "Пекельна брама", en: "Hell Gate", ru: "Адские врата" } },
+            { id: 20, icon: "ph-fill ph-sparkle", qty: 64,
+              itemName: { uk: "незер-кварцу", en: "Nether Quartz", ru: "незер-кварца" },
+              task: { uk: "Добути 64 кварцу", en: "Mine 64 nether quartz", ru: "Добыть 64 незер-кварца" }, 
+              title: { uk: "Біле золото", en: "White Gold", ru: "Белое золото" } },
+            { id: 21, icon: "ph-fill ph-sun-dim", qty: 16,
+              itemName: { uk: "світлопилу", en: "Glowstone Dust", ru: "светопыли" },
+              task: { uk: "Зібрати 16 світлопилу", en: "Collect 16 glowstone dust", ru: "Собрать 16 светопыли" }, 
+              title: { uk: "Світло Пекла", en: "Hellish Light", ru: "Свет Преисподней" } },
+            { id: 22, icon: "ph-fill ph-fire", qty: 8,
+              itemName: { uk: "вогняних стрижнів", en: "Blaze Rods", ru: "огненных стержней" },
+              task: { uk: "Добути 8 вогняних стрижнів", en: "Obtain 8 blaze rods", ru: "Добыть 8 огненных стержней" }, 
+              title: { uk: "Вогняний дуелянт", en: "Blaze Duelist", ru: "Огненный дуэлянт" } },
+            { id: 23, icon: "ph-fill ph-drop", qty: 2,
+              itemName: { uk: "сльози гаста", en: "Ghast Tears", ru: "слезы гаста" },
+              task: { uk: "Отримати 2 сльози гаста", en: "Obtain 2 ghast tears", ru: "Получить 2 слезы гаста" }, 
+              title: { uk: "Сльози неба", en: "Sky Tears", ru: "Слезы неба" } },
+            { id: 24, icon: "ph-fill ph-skull", qty: 3,
+              itemName: { uk: "черепи візер-скелета", en: "Wither Skeleton Skulls", ru: "черепа визер-скелета" },
+              task: { uk: "Добути 3 черепи візер-скелета", en: "Obtain 3 wither skeleton skulls", ru: "Добыть 3 черепа визер-скелета" }, 
+              title: { uk: "Похмурі жнива", en: "Grim Harvest", ru: "Мрачная жатва" } },
+            { id: 25, icon: "ph-fill ph-star", qty: 1,
+              itemName: { uk: "зірку Незеру", en: "Nether Star", ru: "звезду Незера" },
+              task: { uk: "Перемогти Візера та забрати зірку", en: "Defeat the Wither and retrieve the star", ru: "Победить Визера и забрать звезду" }, 
+              title: { uk: "Небесна зірка", en: "Celestial Star", ru: "Небесная звезда" } },
+            { id: 26, icon: "ph-fill ph-cube", qty: 4,
+              itemName: { uk: "стародавні уламки", en: "Ancient Debris Blocks", ru: "древних обломка" },
+              task: { uk: "Добути 4 стародавні уламки", en: "Mine 4 ancient debris", ru: "Добыть 4 древних обломка" }, 
+              title: { uk: "Скарб століть", en: "Treasure of Ages", ru: "Сокровище веков" } },
+            { id: 27, icon: "ph-fill ph-crown", qty: 1,
+              itemName: { uk: "незеритовий зливок", en: "Netherite Ingot", ru: "незеритовый слиток" },
+              task: { uk: "Створити 1 незеритовий зливок", en: "Craft 1 netherite ingot", ru: "Создать 1 незеритовый слиток" }, 
+              title: { uk: "Абсолютна сталь", en: "Absolute Steel", ru: "Абсолютная сталь" } },
+
+            // Row 4: Expert (Дуже складний)
+            { id: 28, icon: "ph-fill ph-circle", qty: 16,
+              itemName: { uk: "перлин Ендеру", en: "Ender Pearls", ru: "жемчужин Эндера" },
+              task: { uk: "Добути 16 перлин Ендеру", en: "Collect 16 ender pearls", ru: "Добыть 16 жемчужин Эндера" }, 
+              title: { uk: "Шукач мандрів", en: "Ender Seeker", ru: "Искатель странствий" } },
+            { id: 29, icon: "ph-fill ph-eye", qty: 12,
+              itemName: { uk: "Ок Ендеру", en: "Eyes of Ender", ru: "глаз Эндера" },
+              task: { uk: "Створити 12 Ок Ендеру", en: "Craft 12 eyes of ender", ru: "Создать 12 глаз Эндера" }, 
+              title: { uk: "Очі безодні", en: "Void Eyes", ru: "Глаза бездны" } },
+            { id: 30, icon: "ph-fill ph-compass", qty: 1,
+              itemName: { uk: "координати фортеці", en: "Stronghold Coordinates", ru: "координаты крепости" },
+              task: { uk: "Знайти фортецю", en: "Find the Stronghold", ru: "Найти крепость" }, 
+              title: { uk: "Навігатор", en: "Navigator", ru: "Навигатор" } },
+            { id: 31, icon: "ph-fill ph-door", qty: 1,
+              itemName: { uk: "активований портал Енду", en: "Activated End Portal", ru: "активированный портал Энда" },
+              task: { uk: "Відчинити портал в Енд", en: "Open the End Portal", ru: "Открыть портал в Энд" }, 
+              title: { uk: "Останній крок", en: "The Last Step", ru: "Последний шаг" } },
+            { id: 32, icon: "ph-fill ph-crown", qty: 1,
+              itemName: { uk: "доказ перемоги над драконом", en: "Dragon Defeat Trophy", ru: "доказательство победы над драконом" },
+              task: { uk: "Перемогти Ендер-дракона", en: "Defeat the Ender Dragon", ru: "Победить Эндер-дракона" }, 
+              title: { uk: "Вбивця драконів", en: "Dragon Slayer", ru: "Убийца драконов" } },
+            { id: 33, icon: "ph-fill ph-egg", qty: 1,
+              itemName: { uk: "яйце дракона", en: "Dragon Egg", ru: "яйцо дракона" },
+              task: { uk: "Забрати яйце дракона", en: "Retrieve the Dragon Egg", ru: "Забрать яйцо дракона" }, 
+              title: { uk: "Легендарний релікт", en: "Legendary Relic", ru: "Легендарный реликт" } },
+            { id: 34, icon: "ph-fill ph-wind", qty: 1,
+              itemName: { uk: "Елітри", en: "Elytra Wings", ru: "Элитры" },
+              task: { uk: "Знайти та одягнути Елітри", en: "Find and equip Elytra", ru: "Найти и надеть Элитры" }, 
+              title: { uk: "Політ сокола", en: "Falcon Flight", ru: "Полет сокола" } },
+            { id: 35, icon: "ph-fill ph-cube", qty: 4,
+              itemName: { uk: "панцирі шалкера", en: "Shulker Shells", ru: "панциря шалкера" },
+              task: { uk: "Добути 4 панцирі шалкера", en: "Collect 4 shulker shells", ru: "Добыть 4 панциря шалкера" }, 
+              title: { uk: "Міцна броня", en: "Sturdy Shells", ru: "Прочная броня" } },
+            { id: 36, icon: "ph-fill ph-package", qty: 2,
+              itemName: { uk: "шалкерів скрині", en: "Shulker Boxes", ru: "шалкеровых ящика" },
+              task: { uk: "Створити 2 шалкерові скрині", en: "Craft 2 shulker boxes", ru: "Создать 2 шалкеровых ящика" }, 
+              title: { uk: "Карманний склад", en: "Pocket Warehouse", ru: "Карманный склад" } },
+
+            // Row 5: Master/Legendary (Неймовірно складний)
+            { id: 37, icon: "ph-fill ph-waves", qty: 3,
+              itemName: { uk: "доказ здолання Вартового", en: "Elder Guardian Trophy", ru: "доказательство победы над Стражем" },
+              task: { uk: "Здолати 3 Стародавніх Вартових", en: "Defeat 3 Elder Guardians", ru: "Победить 3 Древних Стражей" }, 
+              title: { uk: "Океанолог", en: "Oceanologist", ru: "Океанолог" } },
+            { id: 38, icon: "ph-fill ph-drop", qty: 8,
+              itemName: { uk: "висушених губок", en: "Dry Sponges", ru: "высушенных губок" },
+              task: { uk: "Отримати та висушити 8 вологих губок", en: "Collect and dry 8 wet sponges", ru: "Собрать и высушить 8 влажных губок" }, 
+              title: { uk: "Осушення", en: "Dehydration", ru: "Осушение" } },
+            { id: 39, icon: "ph-fill ph-heart", qty: 1,
+              itemName: { uk: "Серце моря", en: "Heart of the Sea", ru: "Сердце моря" },
+              task: { uk: "Знайти Серце моря", en: "Locate the Heart of the Sea", ru: "Найти Сердце моря" }, 
+              title: { uk: "Скарби глибин", en: "Deep Treasures", ru: "Сокровища глубин" } },
+            { id: 40, icon: "ph-fill ph-anchor", qty: 1,
+              itemName: { uk: "запущений Провідник", en: "Activated Conduit", ru: "запущенный Проводник" },
+              task: { uk: "Запустити Провідник під водою", en: "Activate a Conduit underwater", ru: "Запустить Проводник под водой" }, 
+              title: { uk: "Морська магія", en: "Sea Magic", ru: "Морская магия" } },
+            { id: 41, icon: "ph-fill ph-map-trifold", qty: 1,
+              itemName: { uk: "карту Trial Chambers", en: "Trial Chambers Map", ru: "карту Trial Chambers" },
+              task: { uk: "Знайти Палату випробувань", en: "Find a Trial Chambers dungeon", ru: "Найти Палату испытаний" }, 
+              title: { uk: "Лабіринти міді", en: "Copper Labyrinths", ru: "Лабиринты меди" } },
+            { id: 42, icon: "ph-fill ph-key", qty: 1,
+              itemName: { uk: "Ключ випробувань", en: "Trial Key", ru: "Ключ испытаний" },
+              task: { uk: "Отримати Ключ випробувань", en: "Obtain a standard Trial Key", ru: "Получить Ключ испытаний" }, 
+              title: { uk: "Перший ключ", en: "First Key", ru: "Первый ключ" } },
+            { id: 43, icon: "ph-fill ph-key", qty: 1,
+              itemName: { uk: "Звіщальний ключ", en: "Ominous Trial Key", ru: "Зловещий ключ" },
+              task: { uk: "Здобути Звіщальний ключ випробувань", en: "Obtain an Ominous Trial Key", ru: "Добыть Зловещий ключ испытаний" }, 
+              title: { uk: "Звіщальний ключ", en: "Ominous Key", ru: "Зловещий ключ" } },
+            { id: 44, icon: "ph-fill ph-atom", qty: 1,
+              itemName: { uk: "Важке ядро", en: "Heavy Core", ru: "Тяжелое ядро" },
+              task: { uk: "Здобути Важке ядро", en: "Retrieve a Heavy Core", ru: "Добыть Тяжелое ядро" }, 
+              title: { uk: "Стародавня деталь", en: "Ancient Component", ru: "Древняя деталь" } },
+            { id: 45, icon: "ph-fill ph-sword", qty: 1,
+              itemName: { uk: "Булаву", en: "Storm Mace", ru: "Булаву" },
+              task: { uk: "Створити Булаву", en: "Craft the Mace", ru: "Создать Булаву" }, 
+              title: { uk: "Булава Грому", en: "Storm Mace", ru: "Булава Грома" } }
+        ];
+
+        // Translations Object
+        const translations = {
+            uk: {
+                nav_home: "Головна",
+                nav_why_us: "Чому ми",
+                nav_rules: "Правила",
+                nav_how_to_join: "Як зайти",
+                nav_storm_chaser: "Storm Chaser",
+                hero_badge: "Затишний гриферський сервер Minecraft",
+                hero_title_welcome: "Ласкаво просимо на",
+                hero_description: "Занурься у вир справжніх пригод, чесного гриферства, затишної спільноти та унікальних квестів Storm Chaser! Збери команду та підкори наш світ.",
+                hero_btn_copy: "Скопіювати IP сервера",
+                hero_btn_copy_short: "IP Сервера",
+                hero_btn_how: "Як зайти грати?",
+                badge_version: "Версія 1.21.11",
+                badge_no_claims: "Без привату території",
+                features_tag: "Переваги проекту",
+                why_title: "Чому варто обрати нас?",
+                why_subtitle: "Ми створили ідеальні умови для комфортної та захоплюючої гри",
+                feature_1_title: "Затишна атмосфера",
+                feature_1_desc: "Приємне товариство, чуйні гравці та дружня атмосфера в загальному чаті чекають на кожного новачка.",
+                feature_2_title: "Справжній гриферський режим",
+                feature_2_desc: "Ніяких зайвих обмежень! Будуй надійні сховки, замасковуй бази та випробовуй свою кмітливість у боях.",
+                feature_3_title: "Система Storm Chaser",
+                feature_3_desc: "Проходь унікальну лінійку із 45 послідовних квестів на збір ресурсів, одержуй нагороди за кожен рядок від Адміна!",
+                rules_tag: "Регламент проекту",
+                rules_title: "Правила сервера TornadoLand",
+                rules_subtitle: "Дотримання правил забезпечує чесну та приємну гру для всіх",
+                rules_cat_1: "1. Загальні правила",
+                rule_1_1: "Незнання правил не звільняє від відповідальності.",
+                rule_1_2: "Заборонено використання читів, чит-клієнтів та сторонніх програм для отримання переваги.",
+                rule_1_3: "Заборонено навмисне створення лаг-машин чи навантаження сервера.",
+                rules_cat_2: "2. Правила чату",
+                rule_2_1: "Заборонено флуд, спам та зловживання капсом у чаті.",
+                rule_2_2: "Заборонено образливу поведінку, надмірну ненормативну лексику та рекламу інших ресурсів.",
+                rules_cat_3: "3. Будівництво та Ігровий процес",
+                rule_3_1: "На сервері відсутні привати території. Будуйте та добре маскуйте свої сховки та бази!",
+                rule_3_2: "Дозволено гриферство та пошук баз інших гравців за допомогою ігрових механік.",
+                join_tag: "Інструкція підключення",
+                join_title: "Як зайти на сервер TornadoLand",
+                join_subtitle: "Виконайте 4 простих кроки для підключення",
+                step_1_title: "Скачай Radmin VPN",
+                step_1_desc: "Завантаж та встанови програму Radmin VPN на свій комп'ютер.",
+                step_2_title: "Приєднайся до мережі",
+                step_2_desc: "Мережа: <strong class=\"text-white\">Tornado Land</strong><br>Пароль: <strong class=\"text-white\">123456</strong>",
+                step_3_title: "Запусти Minecraft",
+                step_3_desc: "Обери та запусти версію гри <strong class=\"text-white\">1.21.11</strong> у твоєму лаунчері.",
+                step_4_title: "Введи IP сервера",
+                step_4_desc: "Заходь за адресою <strong class=\"text-tornado-300 font-bold\">26.97.77.25:25565</strong> та готуйся до гри!",
+                gui_section_title: "Система Квестів Storm Chaser",
+                gui_quests_title: "КВЕСТИ STORM CHASER (45 КВЕСТІВ)",
+                gui_hint: "Завершіть кожен з 5 рядків (по 9 квестів у кожному) та отримайте бонусну нагороду від Адміністратора!",
+                task_label: "Завдання:",
+                progression_label: "Наступний крок:",
+                status_completed: "Виконано",
+                status_available: "Доступно",
+                status_locked: "Заблоковано",
+                btn_completed: "Завершено",
+                btn_action: "Виконати квест",
+                btn_locked: "Заблоковано",
+                btn_reset: "Скинути прогрес",
+                completed_next_unlocked: "Квест успішно виконано! Наступний квест розблоковано.",
+                row_reward_notice: "👑 <strong>НАГОРОДА ВІД АДМІНА:</strong> Ви завершили рядок! Повідомте Адміністратора в грі для отримання призу!",
+                toast_ip_copied: "IP адресу 26.97.77.25:25565 скопійовано в буфер!",
+                toast_quest_done: "Вітаємо! Квест #{num} успішно виконано!",
+                toast_row_done: "Вітаємо! Ви повністю завершили Рядок #{num}! Зверніться до Адміна за нагородою!",
+                footer_rights: "Всі права захищено.",
+                footer_top: "Нагору"
+            },
+            en: {
+                nav_home: "Home",
+                nav_why_us: "Why Us",
+                nav_rules: "Rules",
+                nav_how_to_join: "How to Join",
+                nav_storm_chaser: "Storm Chaser",
+                hero_badge: "Cozy Minecraft Grief Server",
+                hero_title_welcome: "Welcome to",
+                hero_description: "Dive into real adventures, honest griefing, a cozy community, and unique Storm Chaser quests! Gather a team and conquer our world.",
+                hero_btn_copy: "Copy Server IP",
+                hero_btn_copy_short: "Server IP",
+                hero_btn_how: "How to Play?",
+                badge_version: "Version 1.21.11",
+                badge_no_claims: "No Land Claims",
+                features_tag: "Project Advantages",
+                why_title: "Why Choose Us?",
+                why_subtitle: "We created ideal conditions for comfortable and exciting gameplay",
+                feature_1_title: "Cozy Atmosphere",
+                feature_1_desc: "Pleasant company, responsive players, and a friendly atmosphere in global chat.",
+                feature_2_title: "Real Grief Mode",
+                feature_2_desc: "No unnecessary claims! Build secure stash bases, disguise them, and test your skills in battle.",
+                feature_3_title: "Storm Chaser System",
+                feature_3_desc: "Complete 45 resource gathering quests line, get row rewards from Admin!",
+                rules_tag: "Project Rules",
+                rules_title: "TornadoLand Server Rules",
+                rules_subtitle: "Compliance with the rules ensures a fair and pleasant game for everyone",
+                rules_cat_1: "1. General Rules",
+                rule_1_1: "Ignorance of the rules does not exempt from responsibility.",
+                rule_1_2: "The use of cheats, hacked clients, and third-party software for advantage is prohibited.",
+                rule_1_3: "Intentional creation of lag machines or server overloading is prohibited.",
+                rules_cat_2: "2. Chat Rules",
+                rule_2_1: "Flood, spam, and abuse of caps lock in chat are prohibited.",
+                rule_2_2: "Offensive behavior, excessive profanity, and advertising of other resources are prohibited.",
+                rules_cat_3: "3. Building & Gameplay",
+                rule_3_1: "There are no land claims on the server. Build and disguise your bases well!",
+                rule_3_2: "Griefing and hunting other players' bases using game mechanics is allowed.",
+                join_tag: "Instructions",
+                join_title: "How to Join TornadoLand Server",
+                join_subtitle: "Follow 4 simple steps to connect",
+                step_1_title: "Download Radmin VPN",
+                step_1_desc: "Download and install Radmin VPN on your computer.",
+                step_2_title: "Join the Network",
+                step_2_desc: "Network: <strong class=\"text-white\">Tornado Land</strong><br>Password: <strong class=\"text-white\">123456</strong>",
+                step_3_title: "Launch Minecraft",
+                step_3_desc: "Select and launch game version <strong class=\"text-white\">1.21.11</strong> in your launcher.",
+                step_4_title: "Enter Server IP",
+                step_4_desc: "Connect to <strong class=\"text-tornado-300 font-bold\">26.97.77.25:25565</strong> and prepare to play!",
+                gui_section_title: "Storm Chaser Quests",
+                gui_quests_title: "STORM CHASER QUESTS (45 QUESTS)",
+                gui_hint: "Complete each of the 5 rows (9 quests each) and receive a bonus reward from the Admin!",
+                task_label: "Task:",
+                progression_label: "Next step:",
+                status_completed: "Completed",
+                status_available: "Available",
+                status_locked: "Locked",
+                btn_completed: "Completed",
+                btn_action: "Complete Quest",
+                btn_locked: "Locked",
+                btn_reset: "Reset Progress",
+                completed_next_unlocked: "Quest completed successfully! Next quest unlocked.",
+                row_reward_notice: "👑 <strong>ADMIN REWARD:</strong> You completed a row! Inform the Administrator in-game for your prize!",
+                toast_ip_copied: "IP address 26.97.77.25:25565 copied to clipboard!",
+                toast_quest_done: "Congratulations! Quest #{num} completed successfully!",
+                toast_row_done: "Congratulations! You completed Row #{num}! Contact the Admin for your reward!",
+                footer_rights: "All rights reserved.",
+                footer_top: "Scroll Up"
+            },
+            ru: {
+                nav_home: "Главная",
+                nav_why_us: "Почему мы",
+                nav_rules: "Правила",
+                nav_how_to_join: "Как зайти",
+                nav_storm_chaser: "Storm Chaser",
+                hero_badge: "Уютный гриферский сервер Minecraft",
+                hero_title_welcome: "Добро пожаловать на",
+                hero_description: "Погрузись в водоворот настоящих приключений, честного гриферства, уютного сообщества и уникальных квестов Storm Chaser! Собери команду и покори наш мир.",
+                hero_btn_copy: "Скопировать IP сервера",
+                hero_btn_copy_short: "IP Сервера",
+                hero_btn_how: "Как зайти играть?",
+                badge_version: "Версия 1.21.11",
+                badge_no_claims: "Без привата территории",
+                features_tag: "Преимущества проекта",
+                why_title: "Почему стоит выбрать нас?",
+                why_subtitle: "Мы создали идеальные условия для комфортной и захватывающей игры",
+                feature_1_title: "Уютная атмосфера",
+                feature_1_desc: "Приятная компания, отзывчивые игроки и дружелюбная атмосфера в общем чате ждут каждого новичка.",
+                feature_2_title: "Настоящий гриферский режим",
+                feature_2_desc: "Никаких лишних приватов! Строй надежные убежища, маскируй базы и испытывай свою смекалку в боях.",
+                feature_3_title: "Система Storm Chaser",
+                feature_3_desc: "Проходи уникальную линейку из 45 последовательных квестов на сбор ресурсов, получай награды за каждый ряд от Админа!",
+                rules_tag: "Регламент проекта",
+                rules_title: "Правила сервера TornadoLand",
+                rules_subtitle: "Соблюдение правил обеспечивает честную и приятную игру для всех",
+                rules_cat_1: "1. Общие правила",
+                rule_1_1: "Незнание правил не освобождает от ответственности.",
+                rule_1_2: "Запрещено использование читов, чит-клиентов и сторонних программ для получения преимущества.",
+                rule_1_3: "Запрещено преднамеренное создание лаг-машин или перегрузка сервера.",
+                rules_cat_2: "2. Правила чата",
+                rule_2_1: "Запрещен флуд, спам и злоупотребление капсом в чате.",
+                rule_2_2: "Запрещено оскорбительное поведение, чрезмерная ненормативная лексика и реклама других ресурсов.",
+                rules_cat_3: "3. Строительство и Игровой процесс",
+                rule_3_1: "На сервере отсутствуют приваты территории. Стройте и хорошо маскируйте свои убежища и базы!",
+                rule_3_2: "Разрешено гриферство и поиск баз других игроков с помощью игровых механик.",
+                join_tag: "Инструкция",
+                join_title: "Как зайти на сервер TornadoLand",
+                join_subtitle: "Выполните 4 простых шага для подключения",
+                step_1_title: "Скачай Radmin VPN",
+                step_1_desc: "Скачай и установи программу Radmin VPN на свой компьютер.",
+                step_2_title: "Присоединись к сети",
+                step_2_desc: "Сеть: <strong class=\"text-white\">Tornado Land</strong><br>Пароль: <strong class=\"text-white\">123456</strong>",
+                step_3_title: "Запусти Minecraft",
+                step_3_desc: "Выбери и запусти версию игры <strong class=\"text-white\">1.21.11</strong> в своем лаунчере.",
+                step_4_title: "Введи IP сервера",
+                step_4_desc: "Заходи по адресу <strong class=\"text-tornado-300 font-bold\">26.97.77.25:25565</strong> и готовься к игре!",
+                gui_section_title: "Система Квестов Storm Chaser",
+                gui_quests_title: "КВЕСТЫ STORM CHASER (45 КВЕСТОВ)",
+                gui_hint: "Завершите каждый из 5 рядов (по 9 квестов в каждом) и получите бонусную награду от Администратора!",
+                task_label: "Задание:",
+                progression_label: "Следующий шаг:",
+                status_completed: "Выполнено",
+                status_available: "Доступно",
+                status_locked: "Заблокировано",
+                btn_completed: "Завершено",
+                btn_action: "Выполнить квест",
+                btn_locked: "Заблокировано",
+                btn_reset: "Сбросить прогресс",
+                completed_next_unlocked: "Квест успешно выполнен! Следующий квест разблокирован.",
+                row_reward_notice: "👑 <strong>НАГРАДА ОТ АДМИНА:</strong> Вы завершили ряд! Сообщите Администратору в игре для получения приза!",
+                toast_ip_copied: "IP адрес 26.97.77.25:25565 скопирован в буфер!",
+                toast_quest_done: "Поздравляем! Квест #{num} успешно выполнен!",
+                toast_row_done: "Поздравляем! Вы полностью завершили Ряд #{num}! Обратитесь к Админу за наградой!",
+                footer_rights: "Все права защищены.",
+                footer_top: "Наверх"
+            }
+        };
+
+        // App States
+        let currentLang = localStorage.getItem('tornado_lang') || 'uk';
+        let selectedQuestId = 1;
+        let completedQuests = JSON.parse(localStorage.getItem('tornado_completed_quests')) || [];
+
+        // Interactive particle canvas inside hero section
+        function initHeroCanvas() {
+            const canvas = document.getElementById('heroCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            for (let i = 0; i < 45; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 1,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4 - 0.2,
+                    alpha: Math.random() * 0.7 + 0.3
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0) p.x = canvas.width;
+                    if (p.x > canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = canvas.height;
+                    if (p.y > canvas.height) p.y = 0;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(168, 85, 247, ${p.alpha})`;
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = '#a855f7';
+                    ctx.fill();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // Language Switcher Logic
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('tornado_lang', lang);
+            document.documentElement.lang = lang;
+
+            // Update DOM with localized texts
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (translations[lang][key].includes('<strong') || translations[lang][key].includes('<span') || translations[lang][key].includes('👑')) {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            // Adjust active button styling
+            ['uk', 'en', 'ru'].forEach(l => {
+                const btn = document.getElementById(`btn-lang-${l}`);
+                if (btn) {
+                    if (l === lang) {
+                        btn.className = "px-2.5 py-1 rounded-lg transition-all bg-tornado-600 text-white shadow-md";
+                    } else {
+                        btn.className = "px-2.5 py-1 rounded-lg transition-all text-slate-400 hover:text-white hover:bg-tornado-900/30";
+                    }
+                }
+            });
+
+            // Render active quest details to match updated locale
+            renderSelectedQuest();
+        }
+
+        // Copy IP Address to Clipboard
+        function copyServerIP() {
+            const ip = "26.97.77.25:25565";
+            navigator.clipboard.writeText(ip).then(() => {
+                showToast(translations[currentLang].toast_ip_copied, 'success');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = ip;
+                textarea.style.position = 'fixed';
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast(translations[currentLang].toast_ip_copied, 'success');
+                } catch (e) {
+                    console.error('Copy failed', e);
+                }
+                document.body.removeChild(textarea);
+            });
+        }
+
+        // Toast Alert System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = `pointer-events-auto bg-[#14082b]/95 border border-tornado-800/80 p-4 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-5 opacity-0 transition-all duration-300 backdrop-blur-md`;
+            
+            let icon = '<i class="ph-bold ph-check-circle text-emerald-400 text-xl font-bold"></i>';
+            if (type === 'info') {
+                icon = '<i class="ph-bold ph-info text-sky-400 text-xl font-bold"></i>';
+            } else if (type === 'reward') {
+                icon = '<i class="ph-fill ph-gift text-amber-400 text-2xl animate-bounce"></i>';
+            }
+
+            toast.innerHTML = `
+                ${icon}
+                <div class="text-xs sm:text-sm font-semibold text-slate-200">${message}</div>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-5', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-5', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        // Toggle Mobile Navigation Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            if (!menu) return;
+
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                if (icon) {
+                    icon.classList.remove('ph-list');
+                    icon.classList.add('ph-x');
+                }
+            } else {
+                menu.classList.add('hidden');
+                if (icon) {
+                    icon.classList.remove('ph-x');
+                    icon.classList.add('ph-list');
+                }
+            }
+        }
+
+        // Initialize Quest Grid
+        function initQuestGrid() {
+            const grid = document.getElementById('mcQuestGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= 45; i++) {
+                const q = questData[i-1];
+                const isCompleted = completedQuests.includes(i);
+                const isUnlocked = i === 1 || completedQuests.includes(i - 1);
+                
+                const slot = document.createElement('div');
+                slot.id = `quest-slot-${i}`;
+                
+                let borderClass = 'border-[#4e2182]';
+                let bgClass = 'bg-[#180b2a]';
+                let opacityClass = 'opacity-100';
+                
+                if (isCompleted) {
+                    bgClass = 'bg-[#12311f]/90';
+                    borderClass = 'border-emerald-500/80';
+                } else if (!isUnlocked) {
+                    bgClass = 'bg-[#0b0314]/70';
+                    opacityClass = 'opacity-35';
+                    borderClass = 'border-slate-800/40';
+                } else {
+                    bgClass = 'bg-[#1a0c32]';
+                    borderClass = 'border-purple-600/50';
+                }
+
+                const isSelected = (i === selectedQuestId);
+                const selectedBorder = isSelected ? 'ring-2 ring-white ring-offset-2 ring-offset-[#070210]' : '';
+
+                slot.className = `mc-slot relative aspect-square rounded-xl border-2 ${borderClass} ${bgClass} flex items-center justify-center cursor-pointer transition-all duration-150 ${selectedBorder} group/slot select-none`;
+                slot.onclick = () => selectQuest(i);
+
+                slot.innerHTML = `
+                    <div class="relative flex items-center justify-center w-full h-full ${opacityClass} transition-opacity">
+                        <i class="${q.icon} text-lg sm:text-2xl text-purple-300 group-hover/slot:scale-110 transition-transform duration-200"></i>
+                        ${isCompleted ? '<span class="absolute top-1 right-1 text-[8px] sm:text-[10px] font-black text-emerald-400 bg-emerald-950/80 px-1 rounded flex items-center justify-center gap-0.5"><i class="ph-bold ph-check text-[7px] sm:text-[9px]"></i></span>' : ''}
+                        ${!isUnlocked && !isCompleted ? '<span class="absolute top-1 right-1 text-[8px] sm:text-[10px] font-black text-slate-400"><i class="ph-bold ph-lock"></i></span>' : ''}
+                    </div>
+                    <span class="absolute bottom-1 right-1.5 text-[8px] sm:text-[10px] font-black text-slate-500 group-hover/slot:text-slate-300 transition-colors">${i}</span>
+                `;
+
+                grid.appendChild(slot);
+            }
+        }
+
+        // Select specific Quest
+        function selectQuest(id) {
+            selectedQuestId = id;
+            
+            for (let i = 1; i <= 45; i++) {
+                const slot = document.getElementById(`quest-slot-${i}`);
+                if (slot) {
+                    if (i === selectedQuestId) {
+                        slot.classList.add('ring-2', 'ring-white', 'ring-offset-2', 'ring-offset-[#070210]');
+                    } else {
+                        slot.classList.remove('ring-2', 'ring-white', 'ring-offset-2', 'ring-offset-[#070210]');
+                    }
+                }
+            }
+
+            renderSelectedQuest();
+        }
+
+        // Update details panel below the grid
+        function renderSelectedQuest() {
+            const q = questData[selectedQuestId - 1];
+            if (!q) return;
+
+            const isCompleted = completedQuests.includes(selectedQuestId);
+            const isUnlocked = selectedQuestId === 1 || completedQuests.includes(selectedQuestId - 1);
+
+            // Icon
+            const detailIcon = document.getElementById('detailIcon');
+            if (detailIcon) {
+                detailIcon.innerHTML = `<i class="${q.icon} text-2xl text-purple-300"></i>`;
+            }
+
+            // Title
+            const detailTitle = document.getElementById('detailTitle');
+            if (detailTitle) {
+                const prefix = currentLang === 'uk' ? 'Квест' : (currentLang === 'ru' ? 'Квест' : 'Quest');
+                detailTitle.textContent = `${prefix} #${selectedQuestId}: ${q.title[currentLang]}`;
+            }
+
+            // Level / Row Num
+            const detailLvl = document.getElementById('detailLvl');
+            if (detailLvl) {
+                const levelNum = Math.floor((selectedQuestId - 1) / 9) + 1;
+                const levelPrefix = currentLang === 'uk' ? 'РЯДОК' : (currentLang === 'ru' ? 'РЯД' : 'ROW');
+                detailLvl.textContent = `${levelPrefix} #${levelNum}`;
+            }
+
+            // Status Badge
+            const detailStatus = document.getElementById('detailStatus');
+            if (detailStatus) {
+                if (isCompleted) {
+                    detailStatus.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm";
+                    detailStatus.textContent = translations[currentLang].status_completed;
+                } else if (!isUnlocked) {
+                    detailStatus.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-slate-500/10 text-slate-400 border border-slate-700/30 shadow-sm";
+                    detailStatus.textContent = translations[currentLang].status_locked;
+                } else {
+                    detailStatus.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm";
+                    detailStatus.textContent = translations[currentLang].status_available;
+                }
+            }
+
+            // Tasks
+            const detailTask = document.getElementById('detailTask');
+            if (detailTask) {
+                detailTask.textContent = q.task[currentLang];
+            }
+
+            // Next steps
+            const detailReward = document.getElementById('detailReward');
+            if (detailReward) {
+                if (selectedQuestId === 45) {
+                    detailReward.textContent = currentLang === 'uk' ? "Фінальна перемога!" : (currentLang === 'ru' ? "Финальная победа!" : "Final Victory!");
+                } else {
+                    const nextPrefix = currentLang === 'uk' ? "Розблокує Квест" : (currentLang === 'ru' ? "Разблокирует Квест" : "Unlocks Quest");
+                    detailReward.textContent = `${nextPrefix} #${selectedQuestId + 1}`;
+                }
+            }
+
+            // Actions Buttons
+            const questActionBtn = document.getElementById('questActionBtn');
+            const actionBtnText = document.getElementById('actionBtnText');
+            if (questActionBtn && actionBtnText) {
+                if (isCompleted) {
+                    questActionBtn.disabled = true;
+                    questActionBtn.className = "w-full sm:w-auto bg-emerald-950 border border-emerald-800/40 text-emerald-500/60 font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all shadow-md cursor-not-allowed flex items-center justify-center gap-2";
+                    actionBtnText.textContent = translations[currentLang].btn_completed;
+                } else if (!isUnlocked) {
+                    questActionBtn.disabled = true;
+                    questActionBtn.className = "w-full sm:w-auto bg-[#1b1526] border border-slate-800/40 text-slate-500 font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all shadow-md cursor-not-allowed flex items-center justify-center gap-2";
+                    actionBtnText.textContent = translations[currentLang].btn_locked;
+                } else {
+                    questActionBtn.disabled = false;
+                    questActionBtn.className = "w-full sm:w-auto bg-gradient-to-r from-tornado-700 to-purple-600 hover:from-tornado-600 hover:to-purple-500 active:scale-95 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer";
+                    actionBtnText.textContent = translations[currentLang].btn_action;
+                }
+            }
+
+            // Admin reward display trigger
+            const rowRewardNotice = document.getElementById('rowRewardNotice');
+            if (rowRewardNotice) {
+                if (selectedQuestId % 9 === 0 && isCompleted) {
+                    rowRewardNotice.classList.remove('hidden');
+                    rowRewardNotice.querySelector('span').innerHTML = translations[currentLang].row_reward_notice;
+                } else {
+                    rowRewardNotice.classList.add('hidden');
+                }
+            }
+        }
+
+        // Simulating Quest Completion
+        function toggleCurrentQuestState() {
+            const isCompleted = completedQuests.includes(selectedQuestId);
+            const isUnlocked = selectedQuestId === 1 || completedQuests.includes(selectedQuestId - 1);
+
+            if (isUnlocked && !isCompleted) {
+                completedQuests.push(selectedQuestId);
+                localStorage.setItem('tornado_completed_quests', JSON.stringify(completedQuests));
+
+                // Notify user
+                showToast(translations[currentLang].toast_quest_done.replace('{num}', selectedQuestId), 'success');
+
+                // If row complete (9, 18, 27, 36, 45)
+                if (selectedQuestId % 9 === 0) {
+                    const rowNum = selectedQuestId / 9;
+                    showToast(translations[currentLang].toast_row_done.replace('{num}', rowNum), 'reward');
+                }
+
+                // Render updates
+                initQuestGrid();
+                
+                // Select next available quest if not yet completed all
+                if (selectedQuestId < 45) {
+                    selectedQuestId++;
+                }
+                
+                renderSelectedQuest();
+            }
+        }
+
+        // Reset all progression states
+        function resetQuestProgress() {
+            const confirmMsg = currentLang === 'uk' 
+                ? 'Ви впевнені, що хочете скинути весь прогрес квестів?' 
+                : (currentLang === 'ru' ? 'Вы уверены, что хотите сбросить весь прогресс квестов?' : 'Are you sure you want to reset all quest progress?');
+            
+            if (confirm(confirmMsg)) {
+                completedQuests = [];
+                localStorage.removeItem('tornado_completed_quests');
+                selectedQuestId = 1;
+                initQuestGrid();
+                renderSelectedQuest();
+                
+                const resetSuccessMsg = currentLang === 'uk' 
+                    ? 'Прогрес квестів скинуто!' 
+                    : (currentLang === 'ru' ? 'Прогресс квестов сброшен!' : 'Quest progress reset!');
+                showToast(resetSuccessMsg, 'info');
+            }
+        }
+
+        // Window Initializer
+        window.addEventListener('DOMContentLoaded', () => {
+            initHeroCanvas();
+            setLanguage(currentLang);
+            initQuestGrid();
+            selectQuest(1);
+        });
+    </script>
 </body>
 </html>
