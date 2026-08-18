@@ -11,7 +11,6 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- Google Fonts Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
     <script>
         tailwind.config = {
             theme: {
@@ -58,166 +57,180 @@
         }
     </script>
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0d0520; }
-        ::-webkit-scrollbar-thumb { background: #4c1d95; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
-
+        /* Стилізований скроллбар у фіолетових тонах */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090314;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #581c87;
+            border-radius: 5px;
+            border: 2px solid #090314;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9333ea;
+        }
+        /* Декоративна сітка на фоні */
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(168, 85, 247, 0.12) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        /* Minecraft Slot styling */
         .mc-slot {
             box-shadow: inset 2px 2px 0px #1a082b, inset -2px -2px 0px #5e289e;
         }
         .mc-slot:hover {
-            box-shadow: inset 2px 2px 0px #310d52, inset -2px -2px 0px #9333ea;
+            box-shadow: inset 2px 2px 0px #310d52, inset -2px -2px 0px #9333ea, 0 0 12px rgba(168, 85, 247, 0.5);
         }
         .mc-container {
-            box-shadow: 0 4px 24px rgba(109, 40, 217, 0.25);
+            box-shadow: 0 0 45px rgba(147, 51, 234, 0.35), inset 0 0 15px rgba(88, 28, 135, 0.5);
         }
+        /* Градієнтна рамка для карток */
         .gradient-border {
             position: relative;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(30, 27, 75, 0.15));
-            border-radius: 1rem;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(30, 27, 75, 0.2), rgba(147, 51, 234, 0.15));
+            border-radius: 1.5rem;
             padding: 1px;
         }
         .gradient-border-inner {
-            background: #0f0720;
-            border-radius: 0.95rem;
+            background: rgba(15, 7, 32, 0.85);
+            border-radius: 1.45rem;
             height: 100%;
-        }
-        .section-divider {
-            width: 40px;
-            height: 3px;
-            background: #7c3aed;
-            border-radius: 2px;
-            margin: 12px auto 0;
-        }
-        .step-card {
-            border-left: 3px solid #6d28d9;
         }
     </style>
 </head>
 <body class="bg-[#070210] text-slate-100 font-sans selection:bg-tornado-600 selection:text-white min-h-screen flex flex-col antialiased overflow-x-hidden">
-
     <!-- Шапка сайту (Navigation) -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0b0419] border-b border-[#1e0d38]" style="box-shadow: 0 2px 12px rgba(0,0,0,0.5);">
-        <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
-
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0c051d]/85 backdrop-blur-xl border-b border-tornado-900/40 shadow-lg shadow-black/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
             <!-- Логотип -->
-            <a href="#hero" class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:#2d1060;">
-                    <i class="ph-fill ph-axe text-purple-300 text-xl"></i>
+            <a href="#hero" class="flex items-center gap-3 group">
+                <div class="relative">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform" style="background: linear-gradient(145deg, #4c1d95, #6d28d9, #7c3aed); box-shadow: 0 0 0 1px rgba(139,92,246,0.4), 0 4px 20px rgba(109,40,217,0.5);">
+                        <i class="ph-fill ph-wind text-white text-2xl animate-spin" style="animation-duration: 12s;"></i>
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform" style="background: linear-gradient(145deg, #2d1060, #4c1d95, #3b0f7a); box-shadow: 0 0 0 1px rgba(109,40,217,0.5), 0 4px 24px rgba(76,29,149,0.6);">
+                        <i class="ph-fill ph-axe text-white text-2xl"></i>
+                    </div>
                 </div>
-                <div class="flex flex-col leading-none">
-                    <span class="text-base font-bold text-white">TornadoLand</span>
-                    <span class="flex items-center gap-1 mt-0.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                        <span class="text-[10px] text-emerald-400 font-semibold uppercase tracking-wider">Grief Server</span>
+                <div class="flex flex-col leading-tight">
+                    <span class="text-[1.15rem] font-black tracking-wide text-white drop-shadow-sm">TornadoLand</span>
+                    <span class="flex items-center gap-1.5 mt-0.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]"></span>
+                        <span class="text-[10px] text-emerald-400 font-bold uppercase tracking-widest">Grief Server</span>
                     </span>
                 </div>
             </a>
-
             <!-- Навігаційні посилання (Десктоп) -->
-            <nav class="hidden md:flex items-center gap-6 text-sm text-slate-400">
-                <a href="#hero" class="hover:text-white transition-colors" data-i18n="nav_home">Головна</a>
-                <a href="#features" class="hover:text-white transition-colors" data-i18n="nav_why_us">Чому ми</a>
-                <a href="#rules" class="hover:text-white transition-colors" data-i18n="nav_rules">Правила</a>
-                <a href="#how-to-join" class="hover:text-white transition-colors" data-i18n="nav_how_to_join">Як зайти</a>
-                <a href="#storm-chaser" class="text-purple-400 font-semibold hover:text-purple-300 transition-colors flex items-center gap-1.5" data-i18n="nav_storm_chaser">
-                    <i class="ph-fill ph-lightning text-amber-400 text-sm"></i> Storm Chaser
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
+                <a href="#hero" class="hover:text-tornado-300 transition-all hover:scale-105" data-i18n="nav_home">Головна</a>
+                <a href="#features" class="hover:text-tornado-300 transition-all hover:scale-105" data-i18n="nav_why_us">Чому ми</a>
+                <a href="#rules" class="hover:text-tornado-300 transition-all hover:scale-105" data-i18n="nav_rules">Правила</a>
+                <a href="#how-to-join" class="hover:text-tornado-300 transition-all hover:scale-105" data-i18n="nav_how_to_join">Як зайти</a>
+                <a href="#storm-chaser" class="px-3 py-1.5 rounded-xl bg-tornado-500/10 border border-tornado-500/30 text-tornado-300 font-bold hover:bg-tornado-500/20 hover:border-tornado-400 transition-all flex items-center gap-2 shadow-sm" data-i18n="nav_storm_chaser">
+                    <i class="ph-fill ph-lightning text-amber-400 animate-bounce" style="animation-duration: 2s;"></i> Storm Chaser
                 </a>
             </nav>
-
-            <!-- Права частина -->
-            <div class="hidden sm:flex items-center gap-3">
-                <div class="flex items-center bg-[#130826] p-0.5 rounded-lg border border-[#2a1050] text-xs font-bold gap-0.5">
-                    <button onclick="setLanguage('uk')" id="btn-lang-uk" class="px-2.5 py-1.5 rounded-md transition-all text-slate-400 hover:text-white">UA</button>
-                    <button onclick="setLanguage('en')" id="btn-lang-en" class="px-2.5 py-1.5 rounded-md transition-all text-slate-400 hover:text-white">EN</button>
-                    <button onclick="setLanguage('ru')" id="btn-lang-ru" class="px-2.5 py-1.5 rounded-md transition-all text-slate-400 hover:text-white">RU</button>
+            <!-- Права частина (Мови + Копіювати IP) -->
+            <div class="hidden sm:flex items-center gap-4">
+                <!-- Перемикач мов -->
+                <div class="flex items-center bg-[#150a2d] p-1 rounded-xl border border-tornado-800/60 text-xs font-bold shadow-inner gap-1">
+                    <button onclick="setLanguage('uk')" id="btn-lang-uk" class="px-2.5 py-1 rounded-lg transition-all text-slate-400 hover:text-white">UA</button>
+                    <button onclick="setLanguage('en')" id="btn-lang-en" class="px-2.5 py-1 rounded-lg transition-all text-slate-400 hover:text-white">EN</button>
+                    <button onclick="setLanguage('ru')" id="btn-lang-ru" class="px-2.5 py-1 rounded-lg transition-all text-slate-400 hover:text-white">RU</button>
                 </div>
-                <button onclick="copyServerIP()" class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-semibold px-3.5 py-2 rounded-lg transition-colors flex items-center gap-1.5">
-                    <i class="ph-bold ph-copy text-xs"></i>
-                    <span id="ipTextNav">26.97.77.25:25565</span>
-                </button>
+                <!-- Кнопка Копіювати IP -->
+                <div class="relative group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-tornado-600 to-purple-500 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-300"></div>
+                    <button onclick="copyServerIP()" class="relative bg-gradient-to-r from-tornado-800 to-purple-700 hover:from-tornado-700 hover:to-purple-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-xl transition-all flex items-center gap-2 active:scale-95">
+                        <i class="ph-bold ph-copy text-sm group-hover:rotate-12 transition-transform"></i>
+                        <span id="ipTextNav">26.97.77.25:25565</span>
+                    </button>
+                </div>
             </div>
-
-            <!-- Мобільна кнопка -->
-            <button onclick="toggleMobileMenu()" class="md:hidden text-slate-400 hover:text-white p-2">
-                <i class="ph-bold ph-list text-xl" id="mobileMenuIcon"></i>
+            <!-- Мобільна кнопка гамбургер -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-slate-300 hover:text-white text-2xl focus:outline-none p-2 rounded-xl bg-tornado-900/40 border border-tornado-700/50">
+                <i class="ph-bold ph-list" id="mobileMenuIcon"></i>
             </button>
         </div>
-
         <!-- Мобільне меню -->
-        <div id="mobileMenu" class="hidden md:hidden bg-[#0e0621] border-t border-[#1e0d38] px-5 py-5 space-y-4">
-            <nav class="flex flex-col space-y-3 text-slate-300 text-sm">
-                <a href="#hero" onclick="toggleMobileMenu()" data-i18n="nav_home" class="hover:text-white">Головна</a>
-                <a href="#features" onclick="toggleMobileMenu()" data-i18n="nav_why_us" class="hover:text-white">Чому ми</a>
-                <a href="#rules" onclick="toggleMobileMenu()" data-i18n="nav_rules" class="hover:text-white">Правила</a>
-                <a href="#how-to-join" onclick="toggleMobileMenu()" data-i18n="nav_how_to_join" class="hover:text-white">Як зайти</a>
-                <a href="#storm-chaser" onclick="toggleMobileMenu()" class="text-purple-400 font-semibold flex items-center gap-1.5">
+        <div id="mobileMenu" class="hidden md:hidden bg-[#0e0621] border-b border-tornado-800/60 px-4 py-6 space-y-4 shadow-2xl">
+            <nav class="flex flex-col space-y-3 text-slate-300 font-semibold text-base">
+                <a href="#hero" onclick="toggleMobileMenu()" data-i18n="nav_home" class="hover:text-tornado-400 transition-colors">Головна</a>
+                <a href="#features" onclick="toggleMobileMenu()" data-i18n="nav_why_us" class="hover:text-tornado-400 transition-colors">Чому ми</a>
+                <a href="#rules" onclick="toggleMobileMenu()" data-i18n="nav_rules" class="hover:text-tornado-400 transition-colors">Правила</a>
+                <a href="#how-to-join" onclick="toggleMobileMenu()" data-i18n="nav_how_to_join" class="hover:text-tornado-400 transition-colors">Як зайти</a>
+                <a href="#storm-chaser" onclick="toggleMobileMenu()" class="text-purple-300 flex items-center gap-2 bg-tornado-900/50 p-2 rounded-xl border border-tornado-700/50" data-i18n="nav_storm_chaser">
                     <i class="ph-fill ph-lightning text-amber-400"></i> Storm Chaser
                 </a>
             </nav>
-            <div class="pt-3 border-t border-[#1e0d38] flex items-center justify-between">
-                <div class="flex gap-1 text-xs font-bold bg-[#180b33] p-0.5 rounded-lg border border-[#2a1050]">
+            <div class="pt-4 border-t border-tornado-800/50 flex items-center justify-between">
+                <div class="flex gap-2 text-xs font-bold bg-[#180b33] p-1 rounded-lg border border-tornado-800/60">
                     <button onclick="setLanguage('uk')" class="px-2 py-1 text-slate-300">UA</button>
                     <button onclick="setLanguage('en')" class="px-2 py-1 text-slate-300">EN</button>
                     <button onclick="setLanguage('ru')" class="px-2 py-1 text-slate-300">RU</button>
                 </div>
-                <button onclick="copyServerIP()" class="bg-purple-700 hover:bg-purple-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+                <button onclick="copyServerIP()" class="bg-tornado-600 hover:bg-tornado-500 text-white text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-md">
                     <i class="ph-bold ph-copy"></i>
                     <span data-i18n="hero_btn_copy_short">IP Сервера</span>
                 </button>
             </div>
-         <!-- Фоновий темно-фіолетовий блік -->
-            <div class="absolute inset-0 -z-10" style="background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(109,40,217,0.18) 0%, transparent 70%);"></div>
-
-            <div class="max-w-3xl mx-auto px-5 text-center">
-
-                <!-- Тег -->
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-800/60 text-purple-400 text-xs font-semibold mb-6" style="background: rgba(88,28,135,0.15);">
-                    <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+        </div>
+    </header>
+    <main class="flex-grow pt-20">
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative py-24 sm:py-36 overflow-hidden flex items-center justify-center">
+            <!-- Інтерактивне полотно з фіолетовими частками шторму -->
+            <canvas id="heroCanvas" class="absolute inset-0 pointer-events-none opacity-40 -z-10"></canvas>
+            
+            <!-- Сяючі світлові плями на фоні -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-tornado-600/20 rounded-full blur-[140px] pointer-events-none -z-10 animate-pulse-slow"></div>
+            <div class="absolute bottom-10 left-10 w-72 h-72 bg-indigo-600/15 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+            <div class="absolute top-10 right-10 w-80 h-80 bg-purple-600/15 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+            <div class="bg-grid-pattern absolute inset-0 -z-10 opacity-30"></div>
+            
+            <div class="max-w-5xl mx-auto px-4 text-center space-y-8 relative z-10">
+                
+                <!-- Затишний бейдж -->
+                <div class="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-tornado-950/80 border border-tornado-500/30 text-tornado-300 text-xs sm:text-sm font-bold tracking-wide uppercase shadow-lg shadow-tornado-900/40 backdrop-blur-md animate-float">
+                    <span class="w-2.5 h-2.5 rounded-full bg-tornado-400 animate-ping"></span>
+                    <i class="ph-fill ph-sparkle text-amber-400"></i>
                     <span data-i18n="hero_badge">Затишний гриферський сервер Minecraft</span>
                 </div>
-
-                <!-- Заголовок -->
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4 leading-tight">
-                    <span data-i18n="hero_title_welcome">Ласкаво просимо на</span><br>
-                    <span style="background: linear-gradient(90deg, #c084fc, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">TornadoLand</span>
+                <!-- Головний Заголовок -->
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-tight drop-shadow-lg">
+                    <span data-i18n="hero_title_welcome">Ласкаво просимо на</span> <br>
+                    <span class="bg-gradient-to-r from-tornado-300 via-purple-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_5px_15px_rgba(168,85,247,0.4)]">TornadoLand</span>
                 </h1>
-
                 <!-- Опис -->
-                <p class="text-slate-400 text-base sm:text-lg leading-relaxed mb-8 max-w-xl mx-auto" data-i18n="hero_description">
-                    Занурсь у вир справжніх пригод, чесного гриферства, затишньої спільноти та унікальних квестів Storm Chaser! Збери команду та підкори наш світ.
+                <p class="max-w-2xl mx-auto text-slate-300 text-base sm:text-lg leading-relaxed font-normal" data-i18n="hero_description">
+                    Занурься у вир справжніх пригод, чесного гриферства, затишної спільноти та унікальних квестів Storm Chaser! Збери команду та підкори наш світ.
                 </p>
-
-                <!-- Кнопки -->
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <button onclick="copyServerIP()" class="w-full sm:w-auto px-7 py-3 text-white font-bold rounded-lg text-sm flex items-center justify-center gap-2 transition-colors active:scale-95" style="background: #6d28d9;" onmouseover="this.style.background='#5b21b6'" onmouseout="this.style.background='#6d28d9'">
-                        <i class="ph-bold ph-copy"></i>
-                        <span data-i18n="hero_btn_copy">Скопіювати IP сервера</span>
-                    </button>
-                    <a href="#how-to-join" class="w-full sm:w-auto px-7 py-3 text-slate-300 font-semibold rounded-lg text-sm flex items-center justify-center gap-2 border border-[#2a1050] hover:border-purple-700 transition-colors" style="background: #110526;">
-                        <i class="ph-bold ph-download-simple text-purple-400"></i>
+                <!-- Кнопки дій -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-5 pt-4">
+                    <div class="relative group w-full sm:w-auto">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-tornado-600 via-purple-500 to-indigo-600 rounded-2xl blur-md opacity-75 group-hover:opacity-100 transition duration-300"></div>
+                        <button onclick="copyServerIP()" class="relative w-full sm:w-auto px-9 py-4 bg-gradient-to-r from-tornado-700 to-purple-600 hover:from-tornado-600 hover:to-purple-500 text-white font-extrabold rounded-2xl shadow-2xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-3 text-base active:scale-95">
+                            <i class="ph-bold ph-game-controller text-2xl animate-pulse"></i>
+                            <span data-i18n="hero_btn_copy">Скопіювати IP сервера</span>
+                        </button>
+                    </div>
+                    <a href="#how-to-join" class="w-full sm:w-auto px-8 py-4 bg-[#140a28]/90 hover:bg-[#1e0f3c] text-slate-200 font-bold rounded-2xl border border-tornado-700/60 hover:border-tornado-500 transition-all flex items-center justify-center gap-2 shadow-lg backdrop-blur-md active:scale-95">
+                        <i class="ph-bold ph-download-simple text-xl text-tornado-400"></i>
                         <span data-i18n="hero_btn_how">Як зайти грати?</span>
                     </a>
                 </div>
-
-                <!-- Бейджи -->
-                <div class="flex flex-wrap justify-center gap-3 mt-10">
-                    <div class="flex items-center gap-1.5 text-xs text-slate-400 px-3 py-1.5 rounded-md border border-[#1e0d38]" style="background:#0e051e;">
-                        <i class="ph-fill ph-check-circle text-purple-400"></i>
+                <!-- Інформаційні плашки версії -->
+                <div class="pt-8 flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-slate-300 text-xs sm:text-sm font-semibold">
+                    <div class="px-4 py-2 rounded-xl bg-[#130826]/80 border border-tornado-800/60 backdrop-blur-md flex items-center gap-2 shadow-md hover:border-tornado-500 transition-colors">
+                        <i class="ph-fill ph-check-circle text-tornado-400 text-lg"></i>
                         <span data-i18n="badge_version">Версія 1.21.11</span>
                     </div>
-                    <div class="flex items-center gap-1.5 text-xs text-slate-400 px-3 py-1.5 rounded-md border border-[#1e0d38]" style="background:#0e051e;">
-                        <i class="ph-fill ph-shield-check text-purple-400"></i>
+                    <div class="px-4 py-2 rounded-xl bg-[#130826]/80 border border-tornado-800/60 backdrop-blur-md flex items-center gap-2 shadow-md hover:border-tornado-500 transition-colors">
+                        <i class="ph-fill ph-shield-check text-tornado-400 text-lg"></i>
                         <span>Radmin VPN</span>
-                    </div>
-                    <div class="flex items-center gap-1.5 text-xs text-slate-400 px-3 py-1.5 rounded-md border border-[#1e0d38]" style="background:#0e051e;">
-                        <i class="ph-fill ph-users-three text-purple-400"></i>
-                        <span data-i18n="badge_no_claims">Без привату території</span>
-                    </div>
-                </div>
-            </div>
-        </section>/span>
                     </div>
                     <div class="px-4 py-2 rounded-xl bg-[#130826]/80 border border-tornado-800/60 backdrop-blur-md flex items-center gap-2 shadow-md hover:border-tornado-500 transition-colors">
                         <i class="ph-fill ph-users-three text-tornado-400 text-lg"></i>
@@ -226,41 +239,8 @@
                 </div>
             </div>
         </section>
-
-        <!-- FEATURES SECTION -->
-        <section id="features" class="py-16 border-t border-[#1a0836]" style="background:#0a0320;">
-            <div class="max-w-5xl mx-auto px-5">
-                <div class="text-center mb-12">
-                    <span class="text-purple-500 text-xs font-semibold uppercase tracking-widest" data-i18n="features_tag">Переваги проекту</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-2" data-i18n="why_title">Чому варто обрати нас?</h2>
-                    <div class="section-divider"></div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <div class="p-6 rounded-xl border border-[#2a1050] hover:border-purple-700 transition-colors" style="background:#0f0622;">
-                        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4 text-purple-300 text-xl" style="background:#1c0a38;">
-                            <i class="ph-fill ph-heart"></i>
-                        </div>
-                        <h3 class="text-white font-bold mb-2" data-i18n="feature_1_title">Затишна атмосфера</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="feature_1_desc">Приємне товариство, чуйні гравці та дружня атмосфера в загальному чаті чекають на кожного новачка.</p>
-                    </div>
-                    <div class="p-6 rounded-xl border border-[#2a1050] hover:border-purple-700 transition-colors" style="background:#0f0622;">
-                        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4 text-purple-300 text-xl" style="background:#1c0a38;">
-                            <i class="ph-fill ph-sword"></i>
-                        </div>
-                        <h3 class="text-white font-bold mb-2" data-i18n="feature_2_title">Справжній гриферський режим</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="feature_2_desc">Ніяких зайвих обмежень! Будуй надійні сховки, замасковуй бази та випробовуй свою кмітливість у боях.</p>
-                    </div>
-                    <div class="p-6 rounded-xl border border-[#2a1050] hover:border-purple-700 transition-colors" style="background:#0f0622;">
-                        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4 text-purple-300 text-xl" style="background:#1c0a38;">
-                            <i class="ph-fill ph-trophy"></i>
-                        </div>
-                        <h3 class="text-white font-bold mb-2" data-i18n="feature_3_title">Система Storm Chaser</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="feature_3_desc">Проходь унікальну лінійку із 45 послідовних квестів на збір ресурсів, одержуй нагороди за кожен рядок від Адміна!</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- FEATURES SECTION (Чому ми) -->
+        <section id="features" class="py-24 bg-[#090314]/90 relative border-y border-tornado-900/50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
                     <span class="text-tornado-400 font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2">
@@ -269,7 +249,6 @@
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight" data-i18n="why_title">Чому варто обрати нас?</h2>
                     <p class="text-slate-400 text-sm sm:text-base" data-i18n="why_subtitle">Ми створили ідеальні умови для комфортної та захоплюючої гри</p>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Картка 1 -->
                     <div class="gradient-border group transition-all duration-300 hover:-translate-y-2">
@@ -283,7 +262,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Картка 2 -->
                     <div class="gradient-border group transition-all duration-300 hover:-translate-y-2">
                         <div class="gradient-border-inner p-8 flex flex-col justify-between">
@@ -296,7 +274,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Картка 3 -->
                     <div class="gradient-border group transition-all duration-300 hover:-translate-y-2">
                         <div class="gradient-border-inner p-8 flex flex-col justify-between">
@@ -312,55 +289,8 @@
                 </div>
             </div>
         </section>
-
         <!-- RULES SECTION -->
-        <section id="rules" class="py-16 border-t border-[#1a0836]" style="background:#07021a;">
-            <div class="max-w-3xl mx-auto px-5">
-                <div class="text-center mb-12">
-                    <span class="text-purple-500 text-xs font-semibold uppercase tracking-widest" data-i18n="rules_tag">Регламент проекту</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-2" data-i18n="rules_title">Правила сервера TornadoLand</h2>
-                    <div class="section-divider"></div>
-                    <p class="text-slate-500 text-sm mt-4" data-i18n="rules_subtitle">Дотримання правил забезпечує чесну та приємну гру для всіх</p>
-                </div>
-
-                <div class="space-y-4">
-                    <!-- Загальні -->
-                    <div class="p-5 rounded-xl border border-[#2a1050]" style="background:#0f0622;">
-                        <h3 class="text-purple-300 font-bold mb-4 flex items-center gap-2 text-sm">
-                            <i class="ph-bold ph-shield-warning text-base"></i>
-                            <span data-i18n="rules_cat_1">1. Загальні правила</span>
-                        </h3>
-                        <ul class="space-y-2.5 text-slate-300 text-sm">
-                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">1.1</span><span data-i18n="rule_1_1">Незнання правил не звільняє від відповідальності.</span></li>
-                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">1.2</span><span data-i18n="rule_1_2">Заборонено використання читів, чит-клієнтів та сторонніх програм для отримання переваги.</span></li>
-                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">1.3</span><span data-i18n="rule_1_3">Заборонено навмисне створення лаг-машин чи навантаження сервера.</span></li>
-                        </ul>
-                    </div>
-                    <!-- Чат -->
-                    <div class="p-5 rounded-xl border border-[#2a1050]" style="background:#0f0622;">
-                        <h3 class="text-purple-300 font-bold mb-4 flex items-center gap-2 text-sm">
-                            <i class="ph-bold ph-chat-centered-text text-base"></i>
-                            <span data-i18n="rules_cat_2">2. Правила чату</span>
-                        </h3>
-                        <ul class="space-y-2.5 text-slate-300 text-sm">
-                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">2.1</span><span data-i18n="rule_2_1">Заборонено флуд, спам та зловживання капсом у чаті.</span></li>
-                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">2.2</span><span data-i18n="rule_2_2">Заборонено образливу поведінку, надмірну ненормативну лексику та рекламу інших ресурсів.</span></li>
-                        </ul>
-                    </div>
-                    <!-- Будівництво -->
-                    <div class="p-5 rounded-xl border border-[#2a1050]" style="background:#0f0622;">
-                        <h3 class="text-purple-300 font-bold mb-4 flex items-center gap-2 text-sm">
-                            <i class="ph-bold ph-house-line text-base"></i>
-                            <span data-i18n="rules_cat_3">3. Будівництво та Ігровий процес</span>
-                        </h3>
-                        <ul class="space-y-2.5 text-slate-300 text-sm">
-                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">3.1</span><span data-i18n="rule_3_1">На сервері відсутні привати території. Будуйте та добре маскуйте свої сховки та бази!</span></li>
-                            <li class="flex items-start gap-2.5"><span class="text-purple-500 text-xs font-bold px-1.5 py-0.5 rounded border border-purple-900 shrink-0 mt-0.5" style="background:#1a0836;">3.2</span><span data-i18n="rule_3_2">Дозволено гриферство та пошук баз інших гравців за допомогою ігрових механік.</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section id="rules" class="py-24 relative">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
                     <span class="text-tornado-400 font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2">
@@ -369,7 +299,6 @@
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight" data-i18n="rules_title">Правила сервера TornadoLand</h2>
                     <p class="text-slate-400 text-sm" data-i18n="rules_subtitle">Дотримання правил забезпечує чесну та приємну гру для всіх</p>
                 </div>
-
                 <div class="space-y-6">
                     <!-- Загальні правила -->
                     <div class="bg-[#110626]/80 border border-tornado-800/60 rounded-3xl p-7 shadow-xl backdrop-blur-md hover:border-tornado-600/50 transition-all">
@@ -385,7 +314,6 @@
                             <li class="flex items-start gap-3"><span class="text-tornado-400 font-bold px-2 py-0.5 rounded bg-tornado-950 border border-tornado-800 text-xs shrink-0 mt-0.5">1.3</span> <span data-i18n="rule_1_3">Заборонено навмисне створення лаг-машин чи навантаження сервера.</span></li>
                         </ul>
                     </div>
-
                     <!-- Правила чату -->
                     <div class="bg-[#110626]/80 border border-tornado-800/60 rounded-3xl p-7 shadow-xl backdrop-blur-md hover:border-tornado-600/50 transition-all">
                         <h3 class="text-xl font-bold text-tornado-300 mb-5 flex items-center gap-3">
@@ -399,7 +327,6 @@
                             <li class="flex items-start gap-3"><span class="text-tornado-400 font-bold px-2 py-0.5 rounded bg-tornado-950 border border-tornado-800 text-xs shrink-0 mt-0.5">2.2</span> <span data-i18n="rule_2_2">Заборонено образливу поведінку, надмірну ненормативну лексику та рекламу інших ресурсів.</span></li>
                         </ul>
                     </div>
-
                     <!-- Будівництво -->
                     <div class="bg-[#110626]/80 border border-tornado-800/60 rounded-3xl p-7 shadow-xl backdrop-blur-md hover:border-tornado-600/50 transition-all">
                         <h3 class="text-xl font-bold text-tornado-300 mb-5 flex items-center gap-3">
@@ -416,57 +343,8 @@
                 </div>
             </div>
         </section>
-
         <!-- HOW TO JOIN SECTION -->
-        <section id="how-to-join" class="py-16 border-t border-[#1a0836]" style="background:#0a0320;">
-            <div class="max-w-4xl mx-auto px-5">
-                <div class="text-center mb-12">
-                    <span class="text-purple-500 text-xs font-semibold uppercase tracking-widest" data-i18n="join_tag">Інструкція підключення</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-white mt-2" data-i18n="join_title">Як зайти на сервер TornadoLand</h2>
-                    <div class="section-divider"></div>
-                    <p class="text-slate-500 text-sm mt-4" data-i18n="join_subtitle">Виконайте 4 простих кроки для підключення</p>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="p-5 rounded-xl border-l-2 border-purple-700 border border-[#2a1050]" style="background:#0f0622;">
-                        <div class="flex items-start gap-4">
-                            <span class="text-2xl font-black text-purple-700 leading-none">1</span>
-                            <div>
-                                <h4 class="font-bold text-white mb-1" data-i18n="step_1_title">Скачай Radmin VPN</h4>
-                                <p class="text-slate-400 text-sm" data-i18n="step_1_desc">Завантаж та встанови програму Radmin VPN на свій комп'ютер.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-5 rounded-xl border-l-2 border-purple-700 border border-[#2a1050]" style="background:#0f0622;">
-                        <div class="flex items-start gap-4">
-                            <span class="text-2xl font-black text-purple-700 leading-none">2</span>
-                            <div>
-                                <h4 class="font-bold text-white mb-1" data-i18n="step_2_title">Приєднайся до мережі</h4>
-                                <p class="text-slate-400 text-sm" data-i18n="step_2_desc">Мережа: <strong class="text-white">Tornado Land</strong><br>Пароль: <strong class="text-white">123456</strong></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-5 rounded-xl border-l-2 border-purple-700 border border-[#2a1050]" style="background:#0f0622;">
-                        <div class="flex items-start gap-4">
-                            <span class="text-2xl font-black text-purple-700 leading-none">3</span>
-                            <div>
-                                <h4 class="font-bold text-white mb-1" data-i18n="step_3_title">Запусти Minecraft</h4>
-                                <p class="text-slate-400 text-sm" data-i18n="step_3_desc">Обери та запусти версію гри <strong class="text-white">1.21.11</strong> у твоєму лаунчері.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-5 rounded-xl border-l-2 border-purple-700 border border-[#2a1050]" style="background:#0f0622;">
-                        <div class="flex items-start gap-4">
-                            <span class="text-2xl font-black text-purple-700 leading-none">4</span>
-                            <div>
-                                <h4 class="font-bold text-white mb-1" data-i18n="step_4_title">Введи IP сервера</h4>
-                                <p class="text-slate-400 text-sm" data-i18n="step_4_desc">Заходь за адресою <strong class="text-purple-300 font-bold">26.97.77.25:25565</strong> та готуйся до гри!</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section id="how-to-join" class="py-24 bg-[#090314]/90 border-t border-tornado-900/50 relative">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
                     <span class="text-tornado-400 font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2">
@@ -475,7 +353,6 @@
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight" data-i18n="join_title">Як зайти на сервер TornadoLand</h2>
                     <p class="text-slate-400 text-sm sm:text-base" data-i18n="join_subtitle">Виконайте 4 простих кроки для підключення</p>
                 </div>
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- Крок 1 -->
                     <div class="bg-[#120729] border border-tornado-800/70 p-6 rounded-3xl flex flex-col justify-between hover:border-tornado-500 transition-all shadow-xl relative group">
@@ -485,7 +362,6 @@
                             <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="step_1_desc">Завантаж та встанови програму Radmin VPN на свій комп'ютер.</p>
                         </div>
                     </div>
-
                     <!-- Крок 2 -->
                     <div class="bg-[#120729] border border-tornado-800/70 p-6 rounded-3xl flex flex-col justify-between hover:border-tornado-500 transition-all shadow-xl relative group">
                         <div>
@@ -494,7 +370,6 @@
                             <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="step_2_desc">Мережа: <strong class="text-white">Tornado Land</strong><br>Пароль: <strong class="text-white">123456</strong></p>
                         </div>
                     </div>
-
                     <!-- Крок 3 -->
                     <div class="bg-[#120729] border border-tornado-800/70 p-6 rounded-3xl flex flex-col justify-between hover:border-tornado-500 transition-all shadow-xl relative group">
                         <div>
@@ -503,7 +378,6 @@
                             <p class="text-slate-400 text-xs sm:text-sm leading-relaxed" data-i18n="step_3_desc">Обери та запусти версію гри <strong class="text-white">1.21.11</strong> у твоєму лаунчері.</p>
                         </div>
                     </div>
-
                     <!-- Крок 4 -->
                     <div class="bg-[#120729] border border-tornado-800/70 p-6 rounded-3xl flex flex-col justify-between hover:border-tornado-500 transition-all shadow-xl relative group">
                         <div>
@@ -515,7 +389,6 @@
                 </div>
             </div>
         </section>
-
         <!-- STORM CHASER QUESTS SECTION -->
         <section id="storm-chaser" class="py-24 bg-[#05010a] relative overflow-hidden">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -527,7 +400,6 @@
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight" data-i18n="gui_section_title">Система Квестів Storm Chaser</h2>
                     <p class="text-slate-400 text-sm sm:text-base" data-i18n="gui_hint">Завершіть кожен з 5 рядків (по 9 квестів у кожному) та отримайте бонусну нагороду від Адміністратора!</p>
                 </div>
-
                 <!-- Minecraft GUI Container (Фіоплетова стилістика Minecraft) -->
                 <div class="max-w-4xl mx-auto bg-[#230f38] p-4 sm:p-7 rounded-3xl border-4 border-[#4d2178] shadow-[0_0_55px_rgba(147,51,234,0.35)] relative select-none mc-container">
                     
@@ -536,7 +408,6 @@
                     <div class="absolute top-3 right-3 text-purple-400 text-xl animate-pulse"><i class="ph-fill ph-sparkle"></i></div>
                     <div class="absolute bottom-3 left-3 text-purple-400 text-xl animate-pulse"><i class="ph-fill ph-sparkle"></i></div>
                     <div class="absolute bottom-3 right-3 text-purple-400 text-xl animate-pulse"><i class="ph-fill ph-sparkle"></i></div>
-
                     <!-- Меню заголовку -->
                     <div class="flex justify-center items-center gap-3 mb-5">
                         <div class="bg-[#140724] border-2 border-[#451b6e] px-8 py-2 rounded-2xl text-center shadow-inner flex items-center gap-3">
@@ -544,12 +415,10 @@
                             <span class="font-extrabold text-purple-200 tracking-wider text-sm sm:text-lg uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]" data-i18n="gui_quests_title">КВЕСТИ STORM CHASER (45 КВЕСТІВ)</span>
                         </div>
                     </div>
-
                     <!-- Повна сітка з 5 рядків по 9 слотів = 45 слотів -->
                     <div id="mcQuestGrid" class="grid grid-cols-9 gap-1.5 sm:gap-2.5 justify-center p-3 bg-[#11041f] rounded-2xl border-2 border-[#331154] shadow-inner mb-5">
                         <!-- Динамічні 45 слотів генеруються через JS -->
                     </div>
-
                     <!-- Деталі обраного квесту -->
                     <div id="questDetailBox" class="bg-[#160829] border-2 border-[#3e1869] p-5 rounded-2xl text-white transition-all shadow-xl">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 w-full">
@@ -564,7 +433,6 @@
                             </div>
                             <span id="detailStatus" class="px-4 py-1.5 rounded-full text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm">Доступно</span>
                         </div>
-
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm pt-3 border-t border-[#2e1052] mb-4">
                             <div>
                                 <span class="text-purple-300/70 block font-semibold mb-1" data-i18n="task_label">Завдання:</span>
@@ -575,14 +443,12 @@
                                 <p id="detailReward" class="text-purple-300 font-medium leading-relaxed">Розблокує Квест #2</p>
                             </div>
                         </div>
-
                         <!-- Блок Повідомлення про Нагороду від Адміна за кожен 9-й квест (рядок) -->
                         <div id="rowRewardNotice" class="hidden mt-4 p-3.5 bg-amber-500/10 border border-amber-500/40 rounded-xl text-amber-300 text-xs sm:text-sm font-semibold flex items-center gap-3 shadow-lg animate-pulse">
                             <i class="ph-fill ph-gift text-2xl text-amber-400 shrink-0"></i>
                             <span>👑 <strong>НАГОРОДА ВІД АДМІНА:</strong> Ви завершили рядок! Повідомте Адміністратора в грі для отримання призу!</span>
                         </div>
                     </div>
-
                     <!-- Дія квесту -->
                     <div class="flex justify-end mt-5">
                         <button id="questActionBtn" onclick="toggleCurrentQuestState()" class="w-full sm:w-auto bg-gradient-to-r from-tornado-700 to-purple-600 hover:from-tornado-600 hover:to-purple-500 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
@@ -594,7 +460,6 @@
             </div>
         </section>
     </main>
-
     <!-- FOOTER -->
     <footer class="bg-[#040108] border-t border-tornado-950 py-10 text-center text-slate-500 text-xs">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -609,10 +474,8 @@
             </div>
         </div>
     </footer>
-
     <!-- Toast container -->
     <div id="toastContainer" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2.5 max-w-sm pointer-events-none"></div>
-
     <!-- SCRIPT LOGIC -->
     <script>
         // 45 Quests Dataset
@@ -654,7 +517,6 @@
               itemName: { uk: "залізної руди", en: "Raw Iron", ru: "железной руды" },
               task: { uk: "Добути 4 залізної руди", en: "Mine 4 raw iron", ru: "Добыть 4 необработанного железа" }, 
               title: { uk: "Залізна знахідка", en: "Iron Discovery", ru: "Железная находка" } },
-
             // Row 2: Medium (Середній)
             { id: 10, icon: "ph-fill ph-cube", qty: 16,
               itemName: { uk: "залізних зливків", en: "Iron Ingots", ru: "железных слитков" },
@@ -692,7 +554,6 @@
               itemName: { uk: "блоків обсидіану", en: "Obsidian Blocks", ru: "блоков обсидиана" },
               task: { uk: "Добути 10 блоків обсидіану", en: "Mine 10 obsidian blocks", ru: "Добыть 10 блоков обсидиана" }, 
               title: { uk: "Темна скеля", en: "Dark Rock", ru: "Темная порода" } },
-
             // Row 3: Hard (Складний)
             { id: 19, icon: "ph-fill ph-door", qty: 1,
               itemName: { uk: "активований портал Незеру", en: "Activated Nether Portal", ru: "активированный портал Незера" },
@@ -730,7 +591,6 @@
               itemName: { uk: "незеритовий зливок", en: "Netherite Ingot", ru: "незеритовый слиток" },
               task: { uk: "Створити 1 незеритовий зливок", en: "Craft 1 netherite ingot", ru: "Создать 1 незеритовый слиток" }, 
               title: { uk: "Абсолютна сталь", en: "Absolute Steel", ru: "Абсолютная сталь" } },
-
             // Row 4: Expert (Дуже складний)
             { id: 28, icon: "ph-fill ph-circle", qty: 16,
               itemName: { uk: "перлин Ендеру", en: "Ender Pearls", ru: "жемчужин Эндера" },
@@ -768,7 +628,6 @@
               itemName: { uk: "шалкерів скрині", en: "Shulker Boxes", ru: "шалкеровых ящика" },
               task: { uk: "Створити 2 шалкерові скрині", en: "Craft 2 shulker boxes", ru: "Создать 2 шалкеровых ящика" }, 
               title: { uk: "Карманний склад", en: "Pocket Warehouse", ru: "Карманный склад" } },
-
             // Row 5: Master/Legendary (Неймовірно складний)
             { id: 37, icon: "ph-fill ph-waves", qty: 3,
               itemName: { uk: "доказ здолання Вартового", en: "Elder Guardian Trophy", ru: "доказательство победы над Стражем" },
@@ -807,7 +666,6 @@
               task: { uk: "Створити Булаву", en: "Craft the Mace", ru: "Создать Булаву" }, 
               title: { uk: "Булава Грому", en: "Storm Mace", ru: "Булава Грома" } }
         ];
-
         // Translations Object
         const translations = {
             uk: {
@@ -1012,26 +870,22 @@
                 footer_top: "Наверх"
             }
         };
-
         // App States
         let currentLang = localStorage.getItem('tornado_lang') || 'uk';
         let selectedQuestId = 1;
         let completedQuests = JSON.parse(localStorage.getItem('tornado_completed_quests')) || [];
-
         // Interactive particle canvas inside hero section
         function initHeroCanvas() {
             const canvas = document.getElementById('heroCanvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
             let particles = [];
-
             function resize() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             }
             window.addEventListener('resize', resize);
             resize();
-
             for (let i = 0; i < 45; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
@@ -1042,7 +896,6 @@
                     alpha: Math.random() * 0.7 + 0.3
                 });
             }
-
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 particles.forEach(p => {
@@ -1052,7 +905,6 @@
                     if (p.x > canvas.width) p.x = 0;
                     if (p.y < 0) p.y = canvas.height;
                     if (p.y > canvas.height) p.y = 0;
-
                     ctx.beginPath();
                     ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                     ctx.fillStyle = `rgba(168, 85, 247, ${p.alpha})`;
@@ -1064,13 +916,11 @@
             }
             animate();
         }
-
         // Language Switcher Logic
         function setLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('tornado_lang', lang);
             document.documentElement.lang = lang;
-
             // Update DOM with localized texts
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
@@ -1082,7 +932,6 @@
                     }
                 }
             });
-
             // Adjust active button styling
             ['uk', 'en', 'ru'].forEach(l => {
                 const btn = document.getElementById(`btn-lang-${l}`);
@@ -1094,11 +943,9 @@
                     }
                 }
             });
-
             // Render active quest details to match updated locale
             renderSelectedQuest();
         }
-
         // Copy IP Address to Clipboard
         function copyServerIP() {
             const ip = "26.97.77.25:25565";
@@ -1120,12 +967,10 @@
                 document.body.removeChild(textarea);
             });
         }
-
         // Toast Alert System
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
             if (!container) return;
-
             const toast = document.createElement('div');
             toast.className = `pointer-events-auto bg-[#14082b]/95 border border-tornado-800/80 p-4 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-5 opacity-0 transition-all duration-300 backdrop-blur-md`;
             
@@ -1135,19 +980,15 @@
             } else if (type === 'reward') {
                 icon = '<i class="ph-fill ph-gift text-amber-400 text-2xl animate-bounce"></i>';
             }
-
             toast.innerHTML = `
                 ${icon}
                 <div class="text-xs sm:text-sm font-semibold text-slate-200">${message}</div>
             `;
-
             container.appendChild(toast);
-
             setTimeout(() => {
                 toast.classList.remove('translate-y-5', 'opacity-0');
                 toast.classList.add('translate-y-0', 'opacity-100');
             }, 10);
-
             setTimeout(() => {
                 toast.classList.remove('translate-y-0', 'opacity-100');
                 toast.classList.add('translate-y-5', 'opacity-0');
@@ -1156,13 +997,11 @@
                 }, 300);
             }, 4000);
         }
-
         // Toggle Mobile Navigation Menu
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
             const icon = document.getElementById('mobileMenuIcon');
             if (!menu) return;
-
             if (menu.classList.contains('hidden')) {
                 menu.classList.remove('hidden');
                 if (icon) {
@@ -1177,13 +1016,11 @@
                 }
             }
         }
-
         // Initialize Quest Grid
         function initQuestGrid() {
             const grid = document.getElementById('mcQuestGrid');
             if (!grid) return;
             grid.innerHTML = '';
-
             for (let i = 1; i <= 45; i++) {
                 const q = questData[i-1];
                 const isCompleted = completedQuests.includes(i);
@@ -1207,13 +1044,10 @@
                     bgClass = 'bg-[#1a0c32]';
                     borderClass = 'border-purple-600/50';
                 }
-
                 const isSelected = (i === selectedQuestId);
                 const selectedBorder = isSelected ? 'ring-2 ring-white ring-offset-2 ring-offset-[#070210]' : '';
-
                 slot.className = `mc-slot relative aspect-square rounded-xl border-2 ${borderClass} ${bgClass} flex items-center justify-center cursor-pointer transition-all duration-150 ${selectedBorder} group/slot select-none`;
                 slot.onclick = () => selectQuest(i);
-
                 slot.innerHTML = `
                     <div class="relative flex items-center justify-center w-full h-full ${opacityClass} transition-opacity">
                         <i class="${q.icon} text-lg sm:text-2xl text-purple-300 group-hover/slot:scale-110 transition-transform duration-200"></i>
@@ -1222,11 +1056,9 @@
                     </div>
                     <span class="absolute bottom-1 right-1.5 text-[8px] sm:text-[10px] font-black text-slate-500 group-hover/slot:text-slate-300 transition-colors">${i}</span>
                 `;
-
                 grid.appendChild(slot);
             }
         }
-
         // Select specific Quest
         function selectQuest(id) {
             selectedQuestId = id;
@@ -1241,31 +1073,25 @@
                     }
                 }
             }
-
             renderSelectedQuest();
         }
-
         // Update details panel below the grid
         function renderSelectedQuest() {
             const q = questData[selectedQuestId - 1];
             if (!q) return;
-
             const isCompleted = completedQuests.includes(selectedQuestId);
             const isUnlocked = selectedQuestId === 1 || completedQuests.includes(selectedQuestId - 1);
-
             // Icon
             const detailIcon = document.getElementById('detailIcon');
             if (detailIcon) {
                 detailIcon.innerHTML = `<i class="${q.icon} text-2xl text-purple-300"></i>`;
             }
-
             // Title
             const detailTitle = document.getElementById('detailTitle');
             if (detailTitle) {
                 const prefix = currentLang === 'uk' ? 'Квест' : (currentLang === 'ru' ? 'Квест' : 'Quest');
                 detailTitle.textContent = `${prefix} #${selectedQuestId}: ${q.title[currentLang]}`;
             }
-
             // Level / Row Num
             const detailLvl = document.getElementById('detailLvl');
             if (detailLvl) {
@@ -1273,7 +1099,6 @@
                 const levelPrefix = currentLang === 'uk' ? 'РЯДОК' : (currentLang === 'ru' ? 'РЯД' : 'ROW');
                 detailLvl.textContent = `${levelPrefix} #${levelNum}`;
             }
-
             // Status Badge
             const detailStatus = document.getElementById('detailStatus');
             if (detailStatus) {
@@ -1288,13 +1113,11 @@
                     detailStatus.textContent = translations[currentLang].status_available;
                 }
             }
-
             // Tasks
             const detailTask = document.getElementById('detailTask');
             if (detailTask) {
                 detailTask.textContent = q.task[currentLang];
             }
-
             // Next steps
             const detailReward = document.getElementById('detailReward');
             if (detailReward) {
@@ -1305,7 +1128,6 @@
                     detailReward.textContent = `${nextPrefix} #${selectedQuestId + 1}`;
                 }
             }
-
             // Actions Buttons
             const questActionBtn = document.getElementById('questActionBtn');
             const actionBtnText = document.getElementById('actionBtnText');
@@ -1324,7 +1146,6 @@
                     actionBtnText.textContent = translations[currentLang].btn_action;
                 }
             }
-
             // Admin reward display trigger
             const rowRewardNotice = document.getElementById('rowRewardNotice');
             if (rowRewardNotice) {
@@ -1336,25 +1157,20 @@
                 }
             }
         }
-
         // Simulating Quest Completion
         function toggleCurrentQuestState() {
             const isCompleted = completedQuests.includes(selectedQuestId);
             const isUnlocked = selectedQuestId === 1 || completedQuests.includes(selectedQuestId - 1);
-
             if (isUnlocked && !isCompleted) {
                 completedQuests.push(selectedQuestId);
                 localStorage.setItem('tornado_completed_quests', JSON.stringify(completedQuests));
-
                 // Notify user
                 showToast(translations[currentLang].toast_quest_done.replace('{num}', selectedQuestId), 'success');
-
                 // If row complete (9, 18, 27, 36, 45)
                 if (selectedQuestId % 9 === 0) {
                     const rowNum = selectedQuestId / 9;
                     showToast(translations[currentLang].toast_row_done.replace('{num}', rowNum), 'reward');
                 }
-
                 // Render updates
                 initQuestGrid();
                 
@@ -1366,7 +1182,6 @@
                 renderSelectedQuest();
             }
         }
-
         // Reset all progression states
         function resetQuestProgress() {
             const confirmMsg = currentLang === 'uk' 
@@ -1386,7 +1201,6 @@
                 showToast(resetSuccessMsg, 'info');
             }
         }
-
         // Window Initializer
         window.addEventListener('DOMContentLoaded', () => {
             initHeroCanvas();
